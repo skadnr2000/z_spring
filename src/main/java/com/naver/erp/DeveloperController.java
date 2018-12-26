@@ -338,20 +338,20 @@ public List<Map<String, String>> dbmsList(){
 					// [BoardServiceImpl 객체]의 insertBoard 메소드 호출로 게시판 입력하고 [입력성공 행의 개수]얻기
 					RegDeveloperDTO developList = this.developerService.getUpdeldeveloper(developer_no);
 					mav.addObject("developList", developList);
-					System.out.println("fffff");
+					//System.out.println("fffff");
 					RegDeveloperDTO educationList = this.developerService.getUpdeleducation(developer_no);
 					mav.addObject("educationList", educationList);
-					System.out.println("11");
+					//System.out.println("11");
 					RegDeveloperDTO favoriteList = this.developerService.getUpdelfavorite(developer_no);
 					mav.addObject("favoriteList", favoriteList);
-					System.out.println("22");
+					//System.out.println("22");
 					RegDeveloperDTO hobbyList = this.developerService.getUpdelhobby(developer_no);
 					mav.addObject("hobbyList", hobbyList);
-					System.out.println("33");
+					//System.out.println("33");
 					
 					int schoolCnt = this.developerService.getUpdelschoolCnt(developer_no);
 					mav.addObject("schoolCnt", schoolCnt);
-					System.out.println("44");
+					//System.out.println("44");
 					for(int i = 1; i <= schoolCnt; i++) {
 						Map<String, Integer> Ln_Cnt = new HashMap<String,Integer>();
 						Ln_Cnt.put("developer_no", developer_no);
@@ -368,7 +368,7 @@ public List<Map<String, String>> dbmsList(){
 						DTOfamily familyList = this.developerService.getUpdelfamily(Ln_Cnt);
 						mav.addObject("familyList"+i, familyList);
 					}
-					System.out.println("55");
+				//	System.out.println("55");
 					int companyCnt = this.developerService.getUpdelcompanyCnt(developer_no);
 					mav.addObject("companyCnt", companyCnt);
 					for(int i = 1; i <= companyCnt; i++) {
@@ -387,7 +387,7 @@ public List<Map<String, String>> dbmsList(){
 						DTOproject projectList = this.developerService.getUpdelproject(Ln_Cnt);
 						mav.addObject("projectList"+i, projectList);
 					}
-					System.out.println("66");
+					//System.out.println("66");
 				}catch(Exception ex) {
 					// 예외 발생 시 실행할 코드 설정
 					System.out.println("UpdelDeveloper.UpdelDeveloper(~) 메소드 예외 발생");

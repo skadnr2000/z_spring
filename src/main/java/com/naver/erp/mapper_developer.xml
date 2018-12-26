@@ -433,22 +433,22 @@
 	select d.developer_no as "developer_no"
     , d.developer_name as "developer_name"
     , decode(substr(d.developer_jumin_num,7,1),'1','남','3','남','여') as "developergender"
-    , decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','3','20','4','20')||substr(d.developer_jumin_num,1,2)||'년' as "birth_year"
+    , decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)||'년' as "birth_year"
     , extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1 ||'살' "age"
      , d.developer_phone as "cellphone"
     , d.developer_email as "email"
     , d.developer_jumin_num as "jumin_num"
     , d.addr as "addr"
-   , nvl((select asdf from
+   , nvl((select distinct asdf from
   (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.DEVELOPER_NO and si.SCHOOL_NO = sc.SCHOOL_NO
    and si.SCHOOL_NO =(select max(s.school_no) from school s where dl.DEVELOPER_NO = s.DEVELOPER_NO group by s.developer_no)) where d.DEVELOPER_NO = zxcv),'없음') as "lastschool"
-    , (select qwer from
+    , (select distinct qwer from
   (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.DEVELOPER_NO and si.SCHOOL_NO = sc.SCHOOL_NO
    and si.SCHOOL_NO =(select max(s.school_no) from school s where dl.DEVELOPER_NO = s.DEVELOPER_NO group by s.developer_no)) where d.DEVELOPER_NO = zxcv)
 
     as "lastschool_no"
     
-    ,nvl((select asdf from
+    ,nvl((select distinct asdf from
     (select dl.developer_no as zxcv, to_char(sc.GRADUATION_DATE, 'yyyy') as asdf, sc.SCHOOL_NO from school_index si, school sc, developer dl where sc.developer_no = dl.DEVELOPER_NO and si.SCHOOL_NO = sc.SCHOOL_NO
     and si.SCHOOL_NO = (select max(s.school_no) from school s where dl.DEVELOPER_NO = s.DEVELOPER_NO group by s.developer_no)) where d.DEVELOPER_NO = zxcv),0)||'년' as "lastschoolgradudate"   
    , (select nvl(ceil(sum(project_end_date - project_start_date)/365),0) from development_career dc, career_development_language cdl where dc.developer_no = d.developer_no)||'년차'  as "dev_career"
@@ -509,7 +509,7 @@ from  developer d, favorite f where 1=1  and d.developer_no = f.developer_no(+)
    </if>
    <if test="final_education != null and final_education.size()>0">
    
-      and (select qwer from (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.developer_no and si.school_no = sc.school_no 
+      and (select distinct qwer from (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.developer_no and si.school_no = sc.school_no 
           and si.school_no = (select max(s.school_no) from school s where dl.developer_no = s.developer_no group by s.developer_no)) where d.developer_no = zxcv) in
           <foreach item="final_education" collection="final_education" index="index" open="(" separator="," close=")">
          #{final_education}
@@ -686,7 +686,7 @@ from  developer d, favorite f where 1=1  and d.developer_no = f.developer_no(+)
    </if>
    <if test="final_education != null and final_education.size()>0">
    
-      and (select qwer from (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.developer_no and si.school_no = sc.school_no 
+      and (select distinct qwer from (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.developer_no and si.school_no = sc.school_no 
           and si.school_no = (select max(s.school_no) from school s where dl.developer_no = s.developer_no group by s.developer_no)) where d.developer_no = zxcv) in
           <foreach item="final_education" collection="final_education" index="index" open="(" separator="," close=")">
          #{final_education}
