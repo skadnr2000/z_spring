@@ -64,7 +64,7 @@ public class DeveloperController {
 					// [BoardServiceImpl 객체]의 insertBoard 메소드 호출로 게시판 입력하고 [입력성공 행의 개수]얻기
 					RegDeveloperDTO developList = this.developerService.getUpdeldeveloper(developer_no);
 					mav.addObject("developList", developList);
-<<<<<<< HEAD
+
 					//System.out.println("fffff");
 					RegDeveloperDTO educationList = this.developerService.getUpdeleducation(developer_no);
 					mav.addObject("educationList", educationList);
@@ -79,7 +79,7 @@ public class DeveloperController {
 					int schoolCnt = this.developerService.getUpdelschoolCnt(developer_no);
 					mav.addObject("schoolCnt", schoolCnt);
 					//System.out.println("44");
-=======
+
 					RegDeveloperDTO educationList = this.developerService.getUpdeleducation(developer_no);
 					mav.addObject("educationList", educationList);
 					RegDeveloperDTO favoriteList = this.developerService.getUpdelfavorite(developer_no);
@@ -89,7 +89,7 @@ public class DeveloperController {
 					
 					int schoolCnt = this.developerService.getUpdelschoolCnt(developer_no);
 					mav.addObject("schoolCnt", schoolCnt);
->>>>>>> 7701219bdbc0fb6169f65864d6509eed2e3442bf
+
 					for(int i = 1; i <= schoolCnt; i++) {
 						Map<String, Integer> Ln_Cnt = new HashMap<String,Integer>();
 						Ln_Cnt.put("developer_no", developer_no);
@@ -106,10 +106,9 @@ public class DeveloperController {
 						DTOfamily familyList = this.developerService.getUpdelfamily(Ln_Cnt);
 						mav.addObject("familyList"+i, familyList);
 					}
-<<<<<<< HEAD
+
 				//	System.out.println("55");
-=======
->>>>>>> 7701219bdbc0fb6169f65864d6509eed2e3442bf
+
 					int companyCnt = this.developerService.getUpdelcompanyCnt(developer_no);
 					mav.addObject("companyCnt", companyCnt);
 					for(int i = 1; i <= companyCnt; i++) {
@@ -128,10 +127,9 @@ public class DeveloperController {
 						DTOproject projectList = this.developerService.getUpdelproject(Ln_Cnt);
 						mav.addObject("projectList"+i, projectList);
 					}
-<<<<<<< HEAD
+
 					//System.out.println("66");
-=======
->>>>>>> 7701219bdbc0fb6169f65864d6509eed2e3442bf
+
 				}catch(Exception ex) {
 					// 예외 발생 시 실행할 코드 설정
 					System.out.println("UpdelDeveloper.UpdelDeveloper(~) 메소드 예외 발생");
