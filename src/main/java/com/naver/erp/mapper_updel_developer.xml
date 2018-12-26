@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.erp.DeveloperDAO">
+
+<delete id="deletedeveloper" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from DEVELOPER
+   where
+       developer_no = #{developer_no}
+</delete>
+<delete id="deleteFavorite" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from favorite
+   where
+       developer_no = #{developer_no}
+</delete>
+<delete id="deleteHobby" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from hobby
+   where
+       developer_no = #{developer_no}
+</delete>
+<update id="Updatedeveloper" parameterType="com.naver.erp.RegDeveloperDTO">
+   update
+       DEVELOPER
+   set
+       developer_id = #{developer_id}
+       ,developer_pwd = #{developer_pwd}
+       ,developer_name = #{developer_name}
+       ,developer_jumin_num = #{developer_jumin_num}
+       ,developer_phone = #{developer_phone}
+       ,developer_email = #{developer_email}
+       ,religion_no = ${religion_no}
+       ,military_service_no = ${military_service_no}
+       ,zip_code = #{zip_code}
+       ,addr = #{addr}
+       ,emergency_contact_name = #{emergency_contact_name}
+       ,emergency_contact_relation_no = ${emergency_contact_relation_no}
+       ,emergency_contact_phone = #{emergency_contact_phone}
+       ,bank_no = #{bank_no}
+       ,account_num = #{account_num}
+   where
+       developer_no = #{developer_no}
+</update>
+<delete id="deleteSchool" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from school
+   where
+       developer_no = #{developer_no}
+</delete>
+<insert id="UpdateSchool" parameterType="com.naver.erp.DTOschool">
+   insert into school(
+       school_name
+      ,school_dept_no
+      ,major
+      ,sub_major
+      ,graduation_date
+      ,developer_no
+      ,school_no
+   )
+   values(
+            #{school_name}
+            ,#{school_dept_no}
+            ,#{major}
+            ,#{sub_major}
+            ,to_date(#{graduation_date_year}||#{graduation_date_month}, 'YYYYMM')
+            ,#{developer_no}
+            ,#{school_no}
+)
+   </insert>
+<delete id="deleteFamily" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from FAMILY
+   where
+       developer_no = #{developer_no}
+</delete>
+<insert id="UpdateFamily" parameterType="com.naver.erp.DTOfamily">
+      insert into family(
+          family_relation_no
+         ,family_name
+         ,family_birth
+         ,family_together
+         ,developer_no
+      )
+      values(
+              ${family_relation_no}
+               ,#{family_name}
+               ,to_date(#{family_birth}, 'YYYY')
+               ,#{family_together}
+               ,#{developer_no}
+      )
+   </insert>
+<delete id="deleteCompany_career" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from company_career
+   where
+       developer_no = #{developer_no}
+</delete>
+<insert id="UpdateCompany_career" parameterType="com.naver.erp.DTOcompany">
+      insert into company_career(
+          company_name
+         ,company_task
+         ,boonya_no
+         ,booseo_no
+         ,jikup_no
+         ,hire_type_no
+         ,salary
+         ,hire_date
+         ,leave_date
+         ,developer_no
+      )
+   values(
+           #{company_name}
+         ,#{company_task}
+         ,${boonya_no}
+         ,${booseo_no}
+         ,${jikup_no}
+         ,${hire_type_no}
+         ,${salary}
+         ,to_date(#{hire_date_year}||#{hire_date_month}, 'YYYYMM')
+         ,to_date(#{leave_date_year}||#{leave_date_month}, 'YYYYMM')
+         ,#{developer_no}
+      )
+   </insert>
+<delete id="deleteCertificate" parameterType="com.naver.erp.RegDeveloperDTO">
+delete from DEVELOPER_CERTIFICATE
+where
+    developer_no = #{developer_no}
+</delete>
+<insert id="UpdateDeveloper_certificate" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into developer_certificate(
+       developer_no
+       ,certificate_no
+   )
+   <foreach item="certificate" collection="certificate" index="index" open="" separator="union" close="">
+      select
+          #{developer_no}
+          ,${certificate}
+      from
+         dual
+   </foreach>
+   </insert>
+<delete id="deleteforeign_language_read" parameterType="com.naver.erp.RegDeveloperDTO">
+delete from foreign_language_read
+where
+    developer_no = #{developer_no}
+</delete>
+<insert id="UpdateForeign_language_read" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into foreign_language_read(
+       developer_no
+       ,foreign_language_no
+   )
+   <foreach item="foreign_language_read" collection="foreign_language_read" index="index" open="" separator="union" close="">
+   select
+      #{developer_no}
+       ,${foreign_language_read}
+       from
+         dual
+   </foreach>
+   </insert>
+<delete id="deleteforeign_language_speak" parameterType="com.naver.erp.RegDeveloperDTO">
+ delete from foreign_language_speak
+where
+    developer_no = #{developer_no}
+</delete>
+
+<insert id="UpdateForeign_language_speak" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into foreign_language_speak(
+       developer_no
+       ,foreign_language_no
+   )
+   <foreach item="foreign_language_speak" collection="foreign_language_speak" index="index" open="" separator="union" close="">
+   select
+       #{developer_no}
+       ,${foreign_language_speak}
+       from
+         dual
+   </foreach>
+   </insert>
+<delete id="deleteIt_education_center" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from it_education_center
+   where
+       developer_no = #{developer_no}
+</delete>
+<insert id="updateIt_education_center" parameterType="com.naver.erp.RegDeveloperDTO">
+insert into
+    it_education_center(
+    developer_no
+    ,it_education_center_name
+    ,education_period
+    ,education_completion_date
+    )
+values(
+   #{developer_no}
+   ,#{it_education_center_name}
+   ,${education_period}
+   ,to_date(#{education_date_year}||#{education_date_month}||#{education_date_day}, 'YYYYMMDD')
+)
+</insert>
+<delete id="deleteSubject" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from developer_subject
+   where
+        developer_no = #{developer_no}
+</delete>
+<insert id="UpdateDeveloper_subject" parameterType="com.naver.erp.RegDeveloperDTO">
+      insert into developer_subject(
+          developer_no
+          ,subject_no
+      )
+      <foreach item="subject" collection="subject" index="index" open="" separator="union" close="">
+         select
+             #{developer_no}
+             ,${subject}
+          from
+            dual
+      </foreach>
+   </insert>
+<insert id="UpdateFavorite" parameterType="com.naver.erp.RegDeveloperDTO">
+insert into
+    FAVORITE(
+       developer_no
+       ,day_smoking
+       ,day_soju
+       ,day_beer
+    )
+      values(
+      #{developer_no}
+      ,${day_smoking}
+      ,${day_soju}
+      ,${day_beer}
+      )
+</insert>
+<delete id="deleteAttention" parameterType="com.naver.erp.RegDeveloperDTO">
+delete from developer_attention
+where
+     developer_no = #{developer_no}
+</delete>
+     <insert id="UpdateDeveloper_attention" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into developer_attention(
+       developer_no
+       ,attention_no
+   )
+   <foreach item="attention" collection="attention" index="index" open="" separator="union" close="">
+         select
+             #{developer_no}
+             ,${attention}
+          from
+            dual
+   </foreach>
+   </insert>
+
+<insert id="UpdateHobby" parameterType="com.naver.erp.RegDeveloperDTO">
+    insert into
+       HOBBY(
+       developer_no
+       ,hobby1 
+       ,hobby2
+       ,hobby3
+   )
+   values(
+      #{developer_no}
+      ,#{hobby1}
+      ,#{hobby2}
+      ,#{hobby3}
+   )
+</insert>
+<delete id="deleteDevelopment_career" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from development_career
+   where
+       developer_no = #{developer_no}
+</delete>
+<insert id="UpdateDevelopment_career" parameterType="com.naver.erp.DTOproject">
+      insert into development_career(
+          developer_no
+          ,project_no
+          ,project_name
+          ,project_start_date
+          ,project_end_date
+          ,customer_name
+          ,worker_name
+          ,server_kijong_name
+          ,server_os_name
+      )
+      values(
+           #{developer_no}
+           ,(select nvl(max(project_no), 0) + 1 from development_career)
+           ,#{project_name}
+           ,to_date(#{project_start_date_year}||#{project_start_date_month}, 'YYYYMM')
+           ,to_date(#{project_end_date_year}||#{project_end_date_month}, 'YYYYMM')
+           ,#{customer_name}
+           ,#{worker_name}
+           ,#{server_kijong_name}
+            ,#{server_os_name}
+      )
+
+   </insert>
+<delete id="deleteRoll" parameterType="com.naver.erp.RegDeveloperDTO">
+    delete from developer_roll
+   where
+       developer_no = #{developer_no}
+</delete>
+<insert id="UpdateDeveloper_roll" parameterType="com.naver.erp.DTOproject">
+   insert into developer_roll(
+       developer_no
+       ,project_no
+       ,roll_no
+   )
+   <foreach item="roll" collection="roll" index="index" open="" separator="union" close="">
+         select
+            #{developer_no}
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${roll}
+          from
+            dual
+   </foreach>
+   </insert>
+<delete id="deleteCareer_development_language" parameterType="com.naver.erp.RegDeveloperDTO">
+  delete from career_development_language
+where
+    developer_no = #{developer_no}
+</delete>
+<insert id="UpdateCareer_development_language" parameterType="com.naver.erp.DTOproject">
+   insert into career_development_language(
+       developer_no
+       ,project_no
+       ,development_language_no
+   )
+   <foreach item="development_language" collection="development_language" index="index" open="" separator="union" close="">
+         select
+            #{developer_no}
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${development_language}
+          from
+            dual
+   </foreach>
+   </insert>
+<delete id="deleteFramework" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from development_framework
+   where
+       developer_no = #{developer_no}
+</delete>
+    <insert id="UpdateDevelopment_framework" parameterType="com.naver.erp.DTOproject">
+   insert into development_framework(
+       developer_no
+       ,project_no
+       ,framework_no
+   )
+   <foreach item="framework" collection="framework" index="index" open="" separator="union" close="">
+         select
+            #{developer_no}
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${framework}
+           from
+            dual
+   </foreach>
+   </insert>
+<delete id="deleteDbms" parameterType="com.naver.erp.RegDeveloperDTO">
+   delete from development_DBMS
+   where
+       developer_no = #{developer_no}
+</delete>
+    <insert id="UpdateDevelopment_DBMS" parameterType="com.naver.erp.DTOproject">
+      insert into development_DBMS(
+          developer_no
+          ,project_no
+          ,DBMS_no
+      )
+      <foreach item="DBMS" collection="DBMS" index="index" open="" separator="union" close="">
+         select
+             #{developer_no}
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${DBMS}
+           from
+            dual
+      </foreach>
+   </insert>
+   <select id="getUpdeldeveloper" parameterType="int" resultType="com.naver.erp.RegDeveloperDTO">
+      SELECT
+          developer_id
+          ,developer_pwd
+          ,developer_name
+          ,developer_jumin_num
+          ,developer_phone
+          ,developer_email
+          ,religion_no
+          ,military_service_no
+          ,zip_code
+          ,addr
+          ,emergency_contact_name
+          ,emergency_contact_relation_no
+          ,emergency_contact_phone
+          ,bank_no
+          ,account_num
+      from
+          DEVELOPER
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelschoolCnt" parameterType="int" resultType="int">
+      select
+         count(*)
+      from
+         school
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelschool" parameterType="java.util.HashMap" resultType="com.naver.erp.DTOschool">
+   
+       select aaa.* from       
+       ( select 
+             rownum as RNUM
+            ,school_name as school_name
+            ,school_dept_no as school_dept_no
+            ,major as major
+            ,sub_major as sub_major
+            ,to_char(graduation_date, 'YYYY') as graduation_date_year
+            ,to_char(graduation_date, 'MM') as graduation_date_month
+            ,school_no as school_no
+        from
+            school
+        where
+            developer_no = #{developer_no} ) aaa 
+       <![CDATA[     
+            where RNUM >= #{schoolCnt} and  RNUM <= #{schoolCnt}
+       ]]>
+   </select>
+   <select id="getUpdelfamilyCnt" parameterType="int" resultType="int">
+      select
+         count(*)
+      from
+         family
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelfamily" parameterType="java.util.HashMap" resultType="com.naver.erp.DTOfamily">
+       select aaa.* from       
+       ( select 
+             rownum as RNUM
+          ,family_name
+          ,family_relation_no
+          ,to_char(family_birth, 'YYYY') as family_birth
+          ,family_together
+      from
+          family
+      where
+            developer_no = #{developer_no} ) aaa 
+       <![CDATA[     
+            where RNUM >= #{familyCnt} and  RNUM <= #{familyCnt}
+       ]]>
+   </select>
+   <select id="getUpdelcompanyCnt" parameterType="int" resultType="int">
+      select
+         count(*)
+      from
+         COMPANY_CAREER
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelcompany" parameterType="java.util.HashMap" resultType="com.naver.erp.DTOcompany">
+       select aaa.* from       
+       ( select 
+             rownum as RNUM
+          ,company_name
+          ,company_task
+          ,boonya_no
+          ,booseo_no
+          ,jikup_no
+          ,hire_type_no
+          ,salary
+          ,to_char(hire_date, 'YYYY') as hire_date_year
+          ,to_char(hire_date, 'MM') as hire_date_month
+          ,to_char(leave_date, 'YYYY') as leave_date_year
+          ,to_char(leave_date, 'MM') as leave_date_month
+      from
+          COMPANY_CAREER
+      where
+            developer_no = #{developer_no} ) aaa 
+       <![CDATA[     
+            where RNUM >= #{companyCnt} and  RNUM <= #{companyCnt}
+       ]]>
+   </select>
+   <select id="getUpdelcertificate" parameterType="int" resultType="int">
+      SELECT
+          certificate_no as certificate
+      from
+          DEVELOPER_CERTIFICATE
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelforeign_language_read" parameterType="int" resultType="int">   
+      select
+           FOREIGN_LANGUAGE_NO as foreign_language_read
+      from
+          FOREIGN_LANGUAGE_READ
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelforeign_language_speak" parameterType="int" resultType="int">
+      select
+           FOREIGN_LANGUAGE_NO as foreign_language_speak
+      from
+          FOREIGN_LANGUAGE_SPEAK
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdeleducation" parameterType="int" resultType="com.naver.erp.RegDeveloperDTO">
+      SELECT
+          it_education_center_name
+          ,education_period
+          ,to_char(education_completion_date, 'YYYY') as education_date_year
+          ,to_char(education_completion_date, 'MM') as education_date_month
+          ,to_char(education_completion_date, 'DD') as education_date_day
+      from
+          IT_EDUCATION_CENTER
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelsubject" parameterType="int" resultType="int">
+      select
+         subject_no as subject
+      from
+         developer_subject
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelfavorite" parameterType="int" resultType="com.naver.erp.RegDeveloperDTO">
+      SELECT
+         day_smoking
+         ,day_soju
+         ,day_beer
+      from
+          FAVORITE
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelattention" parameterType="int" resultType="int">
+      SELECT
+         attention_no as attention
+      from
+          developer_attention
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelhobby" parameterType="int" resultType="com.naver.erp.RegDeveloperDTO">
+      select
+          hobby1
+          ,hobby2
+          ,hobby3
+      from
+          hobby
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelprojectCnt" parameterType="int" resultType="int">
+      select
+         count(*)
+      from
+         DEVELOPMENT_CAREER
+      where
+          developer_no = #{developer_no}
+   </select>
+   <select id="getUpdelproject" parameterType="java.util.HashMap" resultType="com.naver.erp.DTOproject">
+      select aaa.* from       
+       ( select 
+             rownum as RNUM
+          ,project_no
+          ,project_name
+          ,to_char(project_start_date, 'YYYY') as project_start_date_year
+          ,to_char(project_start_date, 'MM') as project_start_date_month
+          ,to_char(project_end_date, 'YYYY') as project_end_date_year
+          ,to_char(project_end_date, 'MM') as project_end_date_month
+          ,customer_name
+          ,worker_name
+          ,server_kijong_name
+          ,server_os_name as server_os_name
+      from
+          DEVELOPMENT_CAREER
+      where
+            developer_no = #{developer_no} ) aaa 
+       <![CDATA[     
+            where RNUM >= #{projectCnt} and  RNUM <= #{projectCnt}
+       ]]>
+   </select>
+   <select id="getUpdelroll" parameterType="java.util.HashMap" resultType="int">
+      SELECT
+          roll_no as roll
+      from
+          DEVELOPER_ROLL
+      where
+          developer_no = #{developer_no} and project_no = #{project_no}
+   </select>
+   <select id="getUpdelcareea_development_language" parameterType="java.util.HashMap" resultType="int">
+      SELECT
+          development_language_no as development_language 
+      from
+          CAREER_DEVELOPMENT_LANGUAGE
+      where
+          developer_no = #{developer_no} and project_no = #{project_no}
+   </select>
+   <select id="getUpdelframework" parameterType="java.util.HashMap" resultType="int">
+      SELECT
+          framework_no as framework
+      from
+          DEVELOPMENT_FRAMEWORK
+      where
+         developer_no = #{developer_no} and project_no = #{project_no}
+   </select>
+   <select id="getUpdeldbms" parameterType="java.util.HashMap" resultType="int">
+      select
+          dbms_no as DBMS
+      from
+          DEVELOPMENT_DBMS
+      where
+         developer_no = #{developer_no} and project_no = #{project_no}
+   </select>
+</mapper>

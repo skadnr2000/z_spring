@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<!-- mapper 태그선언 -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+	<!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
+	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포고 있다.-->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<mapper namespace="com.naver.erp.DeveloperDAO">
+
+	<select id="getCertificate" resultType="java.util.HashMap">
+      select
+         certificate_no||'' as "certificate_no"
+         , certificate_name||'' as "certificate_name"
+      from
+         certificate
+   </select>
+   <select id="getForeign_language" resultType="java.util.HashMap">
+      select
+         foreign_language_no||'' as "foreign_language_no"
+         , foreign_language_name||'' as "foreign_language_name"
+      from
+         foreign_language
+   </select>
+   <select id="getSubject" resultType="java.util.HashMap">
+      select
+         subject_no||'' as "subject_no"
+         , subject_name||'' as "subject_name"
+      from
+         subject
+   </select>
+   <select id="getAttention" resultType="java.util.HashMap">
+      select
+         attention_no||'' as "attention_no"
+         , attention_name||'' as "attention_name"
+      from
+         attention
+   </select>
+   <select id="getRoll" resultType="java.util.HashMap">
+      select
+         roll_no||'' as "roll_no"
+         , roll_name||'' as "roll_name"
+      from
+         roll
+   </select>
+   <select id="getDevelopment_language" resultType="java.util.HashMap">
+      select
+         development_language_no||'' as "development_language_no"
+         , development_language_name||'' as "development_language_name"
+      from
+         development_language
+   </select>
+   <select id="getFramework" resultType="java.util.HashMap">
+      select
+         framework_no||'' as "framework_no"
+         , framework_name||'' as "framework_name"
+      from
+         framework
+   </select>
+   <select id="getDbms" resultType="java.util.HashMap">
+      select
+         dbms_no||'' as "dbms_no"
+         , dbms_name||'' as "dbms_name"
+      from
+         dbms
+   </select>
+   <insert id="insertDeveloper" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into developer(
+       developer_no
+       ,developer_id
+       ,developer_pwd
+       ,developer_name
+       ,developer_jumin_num
+       ,developer_phone
+       ,developer_email
+       ,religion_no
+       ,military_service_no
+       ,zip_code
+       ,addr
+       ,emergency_contact_name
+       ,emergency_contact_relation_no
+       ,emergency_contact_phone
+       ,bank_no
+       ,account_num
+   )
+   values(
+        (select nvl(max(developer_no), 0) + 1 from developer)
+       ,#{developer_id}
+       ,#{developer_pwd}
+       ,#{developer_name}
+       ,#{developer_jumin_num}
+       ,#{developer_phone}
+       ,#{developer_email}
+       ,#{religion_no}
+       ,#{military_service_no}
+       ,#{zip_code}
+       ,#{addr}
+       ,#{emergency_contact_name}
+       ,#{emergency_contact_relation_no}
+       ,#{emergency_contact_phone}
+       ,#{bank_no}
+       ,#{account_num}
+   )
+   </insert>
+   
+ <insert id="insertSchool" parameterType="com.naver.erp.DTOschool">
+   insert into school(
+       school_name
+      ,school_dept_no
+      ,major
+      ,sub_major
+      ,graduation_date
+      ,developer_no
+      ,school_no
+   )
+   values(
+            #{school_name}
+            ,#{school_dept_no}
+            ,#{major}
+            ,#{sub_major}
+            ,to_date(#{graduation_date_year}||#{graduation_date_month}, 'YYYYMM')
+            ,(select nvl(max(developer_no), 0) from developer)
+            ,${school_no}
+)
+   </insert>
+   
+   
+    <insert id="insertFamily" parameterType="com.naver.erp.DTOfamily">
+      insert into family(
+          family_relation_no
+         ,family_name
+         ,family_birth
+         ,family_together
+         ,developer_no
+      )
+      values(
+             ${family_relation_no}
+               ,#{family_name}
+               ,to_date(#{family_birth}, 'YYYY')
+               ,#{family_together}
+               ,(select nvl(max(developer_no), 0) from developer)
+      )
+   </insert>
+   
+   
+   
+   <insert id="insertCompany_career" parameterType="com.naver.erp.DTOcompany">
+      insert into company_career(
+          company_name
+         ,company_task
+         ,boonya_no
+         ,booseo_no
+         ,jikup_no
+         ,hire_type_no
+         ,salary
+         ,hire_date
+         ,leave_date
+         ,developer_no
+      )
+   values(
+           #{company_name}
+         ,#{company_task}
+         ,${boonya_no}
+         ,${booseo_no}
+         ,${jikup_no}
+         ,${hire_type_no} 
+         ,${salary}
+         ,to_date(#{hire_date_year}||#{hire_date_month}, 'YYYYMM')
+         ,to_date(#{leave_date_year}||#{leave_date_month}, 'YYYYMM')
+         ,(select nvl(max(developer_no), 0) from developer)
+      )
+   </insert>
+   
+   <insert id="insertDeveloper_certificate" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into developer_certificate(
+       developer_no
+       ,certificate_no
+   )
+   <foreach item="certificate" collection="certificate" index="index" open="" separator="union" close="">
+      select
+          (select nvl(max(developer_no), 0) from developer)
+          ,${certificate}
+      from 
+         dual
+   </foreach>
+   </insert>
+   
+   <insert id="insertForeign_language_read" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into foreign_language_read(
+       developer_no
+       ,foreign_language_no
+   )
+   <foreach item="foreign_language_read" collection="foreign_language_read" index="index" open="" separator="union" close="">
+   select
+      (select nvl(max(developer_no), 0) from developer)
+       ,${foreign_language_read}
+       from 
+         dual
+   </foreach>
+   </insert>
+   
+   <insert id="insertForeign_language_speak" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into foreign_language_speak(
+       developer_no
+       ,foreign_language_no
+   )
+   <foreach item="foreign_language_speak" collection="foreign_language_speak" index="index" open="" separator="union" close="">
+   select
+       (select nvl(max(developer_no), 0) from developer)
+       ,${foreign_language_speak}
+       from 
+         dual
+   </foreach>
+   </insert>
+   
+   <insert id="insertIt_education_center" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into it_education_center(
+      developer_no
+      ,it_education_center_name
+      ,education_period
+      ,education_completion_date
+      
+   )
+   values(
+      (select nvl(max(developer_no), 0) from developer)
+      ,#{it_education_center_name}
+      ,${education_period}
+      ,to_date(#{education_completion_date_year}||#{education_completion_date_month}||#{education_completion_date_day}, 'YYYYMMDD')
+
+      
+   )
+   
+   </insert>
+   
+   <insert id="insertDeveloper_subject" parameterType="com.naver.erp.RegDeveloperDTO">
+      insert into developer_subject(
+          developer_no
+          ,subject_no
+      )
+      <foreach item="subject" collection="subject" index="index" open="" separator="union" close="">
+         select
+             (select nvl(max(developer_no), 0) from developer)
+             ,${subject}
+          from 
+            dual
+      </foreach>
+   </insert>
+   
+   <insert id="insertFavorite" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into favorite(
+       day_smoking
+       ,day_soju
+       ,day_beer
+       ,developer_no
+   )
+   values(
+       ${day_smoking}
+       ,${day_soju}
+       ,${day_beer}
+       ,(select nvl(max(developer_no), 0) from developer)
+   )
+   </insert>
+   
+   <insert id="insertDeveloper_attention" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into developer_attention(
+       developer_no
+       ,attention_no
+   )
+   <foreach item="attention" collection="attention" index="index" open="" separator="union" close="">
+         select
+             (select nvl(max(developer_no), 0) from developer)
+             ,${attention}
+          from 
+            dual
+   </foreach>
+   </insert>
+   
+   <insert id="insertHobby" parameterType="com.naver.erp.RegDeveloperDTO">
+   insert into hobby(
+       developer_no
+       ,hobby1
+       ,hobby2
+       ,hobby3
+   )
+   values(
+      (select nvl(max(developer_no), 0) from developer)
+       ,#{hobby1}
+       ,#{hobby2}
+       ,#{hobby3}
+   )
+   </insert>
+   
+   <insert id="insertDevelopment_career" parameterType="com.naver.erp.DTOproject">
+      insert into development_career(
+          developer_no
+          ,project_no
+          ,project_name
+          ,project_start_date
+          ,project_end_date
+          ,customer_name
+          ,worker_name
+          ,server_kijong_name
+          ,server_os_name
+      )
+      values(
+           (select nvl(max(developer_no), 0) from developer)
+           ,(select nvl(max(project_no), 0) + 1 from development_career)
+           ,#{project_name}
+           ,to_date(#{project_start_date_year}||#{project_start_date_month}, 'YYYYMM')
+           ,to_date(#{project_end_date_year}||#{project_end_date_month}, 'YYYYMM')      
+           ,#{customer_name}
+           ,#{worker_name}
+           ,#{server_kijong_name}
+            ,#{server_os_name}
+      )
+
+   </insert>
+   
+   <insert id="insertDeveloper_roll" parameterType="com.naver.erp.DTOproject">
+   insert into developer_roll(
+       developer_no
+       ,project_no
+       ,roll_no
+   )
+   <foreach item="roll" collection="roll" index="index" open="" separator="union" close="">
+         select
+            (select nvl(max(developer_no), 0) from developer)
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${roll}
+          from 
+            dual
+   </foreach>
+   </insert>
+   
+   <insert id="insertCareer_development_language" parameterType="com.naver.erp.DTOproject">
+   insert into career_development_language(
+       developer_no
+       ,project_no
+       ,development_language_no
+   )
+   <foreach item="development_language" collection="development_language" index="index" open="" separator="union" close="">
+         select
+            (select nvl(max(developer_no), 0) from developer)
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${development_language}
+          from 
+            dual
+   </foreach>
+   </insert>
+   
+   <insert id="insertDevelopment_framework" parameterType="com.naver.erp.DTOproject">
+   insert into development_framework(
+       developer_no
+       ,project_no
+       ,framework_no
+   )
+   <foreach item="framework" collection="framework" index="index" open="" separator="union" close="">
+         select
+            (select nvl(max(developer_no), 0) from developer)
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${framework}
+           from 
+            dual
+   </foreach>
+   </insert>
+   
+   <select id="checkid" parameterType="com.naver.erp.RegDeveloperDTO" resultType="int">
+      select count(*) from developer where developer_id = #{developer_id}
+   </select>
+   <select id="checkaccount_num" parameterType="com.naver.erp.RegDeveloperDTO" resultType="int">
+      select count(*) from developer where account_num = #{account_num}
+   </select>
+   
+   <insert id="insertDevelopment_DBMS" parameterType="com.naver.erp.DTOproject">
+      insert into development_DBMS(
+          developer_no
+          ,project_no
+          ,DBMS_no
+      )
+      <foreach item="DBMS" collection="DBMS" index="index" open="" separator="union" close="">
+         select
+             (select nvl(max(developer_no), 0) from developer)
+             ,(select nvl(max(project_no), 0) from development_career)
+             ,${DBMS}
+           from 
+            dual
+      </foreach>
+   </insert> 
+	
+	
+	
+	
+	
+	
+	
+	<select id="getSkill_List" resultType="java.util.HashMap">
+		select 
+		development_language_no||'' "development_language_no" 
+		, development_language_name "development_language_name"
+		from development_language
+	</select><!-- 검색화면 스킬 체크박스 이름 뿌려주기 -->
+	
+	<select id="getSchool_IndexList" resultType="java.util.HashMap">
+		select 
+		school_no||'' "school_no" 
+		, school_name "school_name"
+		from school_index
+	</select> <!-- 검색화면 최종학력 체크박스 이름 뿌려주기 -->
+	
+	<select id="getCertificate_fieldList" resultType="java.util.HashMap">
+		select 
+		certificate_no||'' "certificate_no" 
+		, certificate_name "certificate_name"
+		from certificate
+	</select>
+	
+	<select id="getRoll_fieldList" resultType="java.util.HashMap">
+		select 
+		roll_no||'' "roll_no" 
+		, roll_name "roll_name"
+		from roll
+	</select>
+	
+	
+	
+	
+	
+	<select id="getDeveloperList" parameterType="com.naver.erp.RegDeveloperSearchDTO" resultType="java.util.HashMap">
+	select * from (select zzz.*, rownum RNUM from (
+	select d.developer_no as "developer_no"
+    , d.developer_name as "developer_name"
+    , decode(substr(d.developer_jumin_num,7,1),'1','남','3','남','여') as "developergender"
+    , decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','3','20','4','20')||substr(d.developer_jumin_num,1,2)||'년' as "birth_year"
+    , extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1 ||'살' "age"
+     , d.developer_phone as "cellphone"
+    , d.developer_email as "email"
+    , d.developer_jumin_num as "jumin_num"
+    , d.addr as "addr"
+   , nvl((select asdf from
+  (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.DEVELOPER_NO and si.SCHOOL_NO = sc.SCHOOL_NO
+   and si.SCHOOL_NO =(select max(s.school_no) from school s where dl.DEVELOPER_NO = s.DEVELOPER_NO group by s.developer_no)) where d.DEVELOPER_NO = zxcv),'없음') as "lastschool"
+    , (select qwer from
+  (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.DEVELOPER_NO and si.SCHOOL_NO = sc.SCHOOL_NO
+   and si.SCHOOL_NO =(select max(s.school_no) from school s where dl.DEVELOPER_NO = s.DEVELOPER_NO group by s.developer_no)) where d.DEVELOPER_NO = zxcv)
+
+    as "lastschool_no"
+    
+    ,nvl((select asdf from
+    (select dl.developer_no as zxcv, to_char(sc.GRADUATION_DATE, 'yyyy') as asdf, sc.SCHOOL_NO from school_index si, school sc, developer dl where sc.developer_no = dl.DEVELOPER_NO and si.SCHOOL_NO = sc.SCHOOL_NO
+    and si.SCHOOL_NO = (select max(s.school_no) from school s where dl.DEVELOPER_NO = s.DEVELOPER_NO group by s.developer_no)) where d.DEVELOPER_NO = zxcv),0)||'년' as "lastschoolgradudate"   
+   , (select nvl(ceil(sum(project_end_date - project_start_date)/365),0) from development_career dc, career_development_language cdl where dc.developer_no = d.developer_no)||'년차'  as "dev_career"
+    ,  (select substr(xmlagg(xmlelement(x,',',
+        (select dl.development_language_name from development_language dl where dl.development_language_no = cdl.development_language_no)
+        )).extract('//text()'),2)
+        from (select distinct development_language_no, developer_no from career_development_language) cdl
+        where cdl.developer_no = d.developer_no)  as "reg_skill"
+    , (select substr(xmlagg(xmlelement(x,',',
+        (select c.certificate_name from certificate c where c.certificate_no = dc.certificate_no)
+        )).extract('//text()'),2)
+        from (select distinct cs.certificate_no, cs.developer_no from developer_certificate cs) dc
+        where dc.developer_no = d.developer_no) as "certificate"
+   
+from  developer d, favorite f where 1=1  and d.developer_no = f.developer_no(+)
+
+	
+	<if test="keyword1!=null and keyword1!='' or  keyword2 !=null and keyword2 !=''">
+		and (
+	</if>
+	
+	<if test="keyword1!=null and keyword1!=''">
+		(upper(d.developer_name) like upper('%${keyword1}%') or upper(decode(substr(d.developer_jumin_num,7,1),'1','남','3','남','여')) like upper('%${keyword1}%') 
+		or upper(d.developer_phone) like upper('%${keyword1}%')
+    	or upper(d.developer_email) like upper('%${keyword1}%') or upper(d.developer_email) like upper('%${keyword1}%') or upper(d.developer_jumin_num) like upper('%${keyword1}%')
+    	or upper(d.addr) like upper('%${keyword1}%')
+  		)
+	</if>
+	<if test="keyword1!=null and keyword1!='' and  keyword2 !=null and keyword2 !=''">
+		${orAnd}
+	</if>
+	<if test="keyword2!=null and keyword2!=''">
+		(upper(d.developer_name) like upper('%${keyword2}%') or upper(decode(substr(d.developer_jumin_num,7,1),'1','남','3','남','여')) like upper('%${keyword2}%') 
+		or upper(d.developer_phone) like upper('%${keyword2}%')
+    	or upper(d.developer_email) like upper('%${keyword2}%') or upper(d.developer_email) like upper('%${keyword2}%') or upper(d.developer_jumin_num) like upper('%${keyword2}%')
+    	or upper(d.addr) like upper('%${keyword2}%')
+  		)
+	</if>
+	<if test="keyword1!=null and keyword1!='' or  keyword2 !=null and keyword2 !=''">
+		)
+	</if> 
+	
+	<if test="skill != null and skill.size()>0">
+      
+        and d.developer_no = any(select cd.developer_no from career_development_language cd where cd.development_language_no in
+        <foreach item="skill" collection="skill" index="index" open="(" separator="," close=")">
+        #{skill}
+      </foreach>
+      )
+    </if>
+        <if test="min_devYear != null and min_devYear !='' and max_devYear!= null and max_devYear!=''">
+    and (select ceil(sum(project_end_date - project_start_date)/365) from development_career dc where dc.developer_no = d.developer_no) between ${min_devYear} and ${max_devYear}
+   </if>
+   <if test="min_devYear != null and min_devYear !=''" >
+   <![CDATA[
+    and (select ceil(sum(project_end_date - project_start_date)/365) from development_career dc where dc.developer_no = d.developer_no) >= ${min_devYear}
+    ]]> 
+   </if>
+   <if test="final_education != null and final_education.size()>0">
+   
+      and (select qwer from (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.developer_no and si.school_no = sc.school_no 
+          and si.school_no = (select max(s.school_no) from school s where dl.developer_no = s.developer_no group by s.developer_no)) where d.developer_no = zxcv) in
+          <foreach item="final_education" collection="final_education" index="index" open="(" separator="," close=")">
+         #{final_education}
+      </foreach>
+   </if>
+   <if test="certificate != null and certificate.size()>0">
+      
+        and d.developer_no = any(select cd.developer_no from developer_certificate cd where cd.certificate_no in
+        <foreach item="certificate" collection="certificate" index="index" open="(" separator="," close=")">
+        #{certificate}
+      </foreach>
+      )
+    </if>
+    <if test="role != null and role.size()>0">
+      
+        and d.developer_no = any(select cd.developer_no from developer_roll cd where cd.roll_no in
+        <foreach item="role" collection="role" index="index" open="(" separator="," close=")">
+        #{role}
+      </foreach>
+      )
+    </if>
+	 
+	
+ 	<if test="min_age !=null and min_age !='' and  max_age !=null and max_age !=''">
+		and ((extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1) &gt;= #{min_age}
+		and  (extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1) &lt;= #{max_age})
+	</if> 
+	<if test="min_age !=null and min_age !=''">
+		and ((extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1) &gt;= #{min_age})
+		
+	</if>
+	<if test="min_soju !=null and min_soju !='' and max_soju !=null and max_soju !=''  " >
+		and  f.day_soju between ${min_soju} and ${max_soju}
+	</if>
+	<if test="min_soju !=null and min_soju !=''" >
+		<![CDATA[and  f.day_soju >= ${min_soju} ]]>
+	</if>
+	<if test="min_beer !=null and min_beer !='' and max_beer !=null and max_beer !=''  " >
+		and  f.day_beer between ${min_beer} and ${max_beer}
+	</if>
+	<if test="min_beer !=null and min_beer !=''" >
+		<![CDATA[and  f.day_beer >= ${min_beer} ]]>
+	</if>
+	
+<if test="birth_year1 !=null and birth_year1 !='' and birth_month1 !=null and birth_month1 !='' and birth_year2 !=null and birth_year2 !='' and birth_month2 !=null and birth_month2 !='' " >
+		and (to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)||(substr(d.developer_jumin_num,3,2)),'999999')) between to_number(#{birth_year1}||#{birth_month1}||'') and to_number(#{birth_year2}||#{birth_month2}||'')
+	</if>
+	<if test="birth_year1 !=null and birth_year1 !='' and birth_month1 !=null and birth_month1 !=''" >
+		<![CDATA[and (to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)||(substr(d.developer_jumin_num,3,2)),'999999')) >= to_number(#{birth_year1}||#{birth_month1}||'') ]]>
+	</if>
+	
+	
+	
+	
+	 <if test="gender1 !=null and gender1 !=''" >
+	 	<if test="gender2 ==null or gender2 ==''" >
+			and decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender1} 
+		</if>
+		<if test="gender2 !=null and gender2 !=''" >
+			and ((decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender1}) or (decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2}))
+		</if>
+	</if>
+	
+	<if test="gender2 !=null and gender2 !=''" >
+	 	<if test="gender1 ==null or gender1 ==''" >
+			and decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2} 
+		</if>
+		<if test="gender1 !=null and gender1 !=''" >
+			and ((decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender1}) or (decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2}))
+		</if>
+	</if>
+	
+	<!-- <if test="gender2 !=null and gender2 !=''" >
+		and  decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2}
+	</if> 
+	
+	<if test="gender1 !=null and gender1 !='' and gender2 !=null and gender2 !=''" >
+	
+			and ((decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender1}) or (decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2}))
+	</if> -->
+	 
+	<!-- <if test="skill != null and skill.size()>0">
+  		and (select substr(xmlagg(xmlelement(x,',',
+        (select dl.development_language_name from development_language dl where dl.development_language_no = cdl.development_language_no)
+        )).extract('//text()'),2)
+        from career_development_language cdl
+        where cdl.developer_no = d.developer_no)in
+		<foreach item="skill" collection="skill" index="index" open="(" separator="," close=")">
+			#{skill}
+		</foreach>
+    </if>  -->
+    	<if test="sort!=null and sort!=''">
+			order by ${sort}
+			
+		</if>
+	
+		<if test="sort==null or sort==''">
+			order by "developer_no" desc	
+		</if>
+		
+		
+		<![CDATA[
+			) zzz) where RNUM >= ${beginRowNo} and RNUM <= ${endRowNo} 
+		]]>
+		
+	
+		  	<!-- <if test="final_education!=null and final_education.size()>0">
+  		
+	and  (select sc.school_no from school sc, school_index si where sc.school_no = si.school_no
+    	and si.school_no=(select max(school_no) from school s where d.developer_no = s.developer_no))in		
+		<foreach item="final_education" collection="final_education" index="index" open="(" separator="," close=")">
+		#{final_education}
+		</foreach>
+	
+				
+	</if>    -->
+	
+	
+
+	</select>
+	
+	<select id="getDeveloperListAllCnt" parameterType="com.naver.erp.RegDeveloperSearchDTO" resultType="int">
+	 select count(*)  from developer d , favorite f where 1=1 and d.developer_no = f.developer_no(+)
+	 
+ 	 <if test="keyword1!=null and keyword1!='' or  keyword2 !=null and keyword2 !=''">
+		and (
+	</if>
+	
+	<if test="keyword1!=null and keyword1!=''">
+		(upper(d.developer_name) like upper('%${keyword1}%') or upper(decode(substr(d.developer_jumin_num,7,1),'1','남','3','남','여')) like upper('%${keyword1}%') 
+		or upper(d.developer_phone) like upper('%${keyword1}%')
+    	or upper(d.developer_email) like upper('%${keyword1}%') or upper(d.developer_email) like upper('%${keyword1}%') or upper(d.developer_jumin_num) like upper('%${keyword1}%')
+    	or upper(d.addr) like upper('%${keyword1}%')
+  		)
+	</if>
+	<if test="keyword1!=null and keyword1!='' and  keyword2 !=null and keyword2 !=''">
+		${orAnd}
+	</if>
+	<if test="keyword2!=null and keyword2!=''">
+		(upper(d.developer_name) like upper('%${keyword2}%') or upper(decode(substr(d.developer_jumin_num,7,1),'1','남','3','남','여')) like upper('%${keyword2}%') 
+		or upper(d.developer_phone) like upper('%${keyword2}%')
+    	or upper(d.developer_email) like upper('%${keyword2}%') or upper(d.developer_email) like upper('%${keyword2}%') or upper(d.developer_jumin_num) like upper('%${keyword2}%')
+    	or upper(d.addr) like upper('%${keyword2}%')
+  		)
+	</if>
+	<if test="keyword1!=null and keyword1!='' or  keyword2 !=null and keyword2 !=''">
+		)
+	</if>
+	
+	<if test="skill != null and skill.size()>0">
+      
+        and d.developer_no = any(select cd.developer_no from career_development_language cd where cd.development_language_no in
+        <foreach item="skill" collection="skill" index="index" open="(" separator="," close=")">
+        #{skill}
+      </foreach>
+      )
+    </if>
+    <if test="certificate != null and certificate.size()>0">
+      
+        and d.developer_no = any(select cd.developer_no from developer_certificate cd where cd.certificate_no in
+        <foreach item="certificate" collection="certificate" index="index" open="(" separator="," close=")">
+        #{certificate}
+      </foreach>
+      )
+    </if>
+    
+   <if test="min_devYear != null and min_devYear !='' and max_devYear!= null and max_devYear!=''">
+    and (select ceil(sum(project_end_date - project_start_date)/365) from development_career dc where dc.developer_no = d.developer_no) between ${min_devYear} and ${max_devYear}
+   </if>
+   <if test="min_devYear != null and min_devYear !=''" >
+   <![CDATA[
+    and (select ceil(sum(project_end_date - project_start_date)/365) from development_career dc where dc.developer_no = d.developer_no) >= ${min_devYear}
+    ]]> 
+   </if>
+   <if test="final_education != null and final_education.size()>0">
+   
+      and (select qwer from (select dl.developer_no as zxcv, si.school_name as asdf, sc.SCHOOL_NO as qwer from school_index si, school sc, developer dl where sc.developer_no = dl.developer_no and si.school_no = sc.school_no 
+          and si.school_no = (select max(s.school_no) from school s where dl.developer_no = s.developer_no group by s.developer_no)) where d.developer_no = zxcv) in
+          <foreach item="final_education" collection="final_education" index="index" open="(" separator="," close=")">
+         #{final_education}
+      </foreach>
+   </if>
+   
+   <if test="role != null and role.size()>0">
+      
+        and d.developer_no = any(select cd.developer_no from developer_roll cd where cd.roll_no in
+        <foreach item="role" collection="role" index="index" open="(" separator="," close=")">
+        #{role}
+      </foreach>
+      )
+    </if>
+	
+
+	
+	 <if test="min_age !=null and min_age !='' and  max_age !=null and max_age !=''">
+		and ((extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1) &gt;= #{min_age}
+		and  (extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1) &lt;= #{max_age})
+	</if>
+	<if test="min_age !=null and min_age !=''">
+		and ((extract(year from sysdate) - to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)) + 1) &gt;= #{min_age})
+		
+	</if>
+<if test="min_soju !=null and min_soju !='' and max_soju !=null and max_soju !=''  " >
+		and  f.day_soju between ${min_soju} and ${max_soju}
+	</if>
+	<if test="min_soju !=null and min_soju !=''" >
+		<![CDATA[and  f.day_soju >= ${min_soju} ]]>
+	</if>
+	<if test="min_beer !=null and min_beer !='' and max_beer !=null and max_beer !=''  " >
+		and  f.day_beer between ${min_beer} and ${max_beer}
+	</if>
+	<if test="min_beer !=null and min_beer !=''" >
+		<![CDATA[and  f.day_beer >= ${min_beer} ]]>
+	</if>
+	
+	<if test="birth_year1 !=null and birth_year1 !='' and birth_month1 !=null and birth_month1 !='' and birth_year2 !=null and birth_year2 !='' and birth_month2 !=null and birth_month2 !='' " >
+		and (to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)||(substr(d.developer_jumin_num,3,2)),'999999')) between to_number(#{birth_year1}||#{birth_month1}||'') and to_number(#{birth_year2}||#{birth_month2}||'')
+	</if>
+	<if test="birth_year1 !=null and birth_year1 !='' and birth_month1 !=null and birth_month1 !=''" >
+		<![CDATA[and (to_number(decode(substr(d.developer_jumin_num,7,1),'1','19','2','19','20')||substr(d.developer_jumin_num,1,2)||(substr(d.developer_jumin_num,3,2)),'999999')) >= to_number(#{birth_year1}||#{birth_month1}||'') ]]>
+	</if>
+
+	
+	
+	
+	 <if test="gender1 !=null and gender1 !=''" >
+	 	<if test="gender2 ==null or gender2 ==''" >
+			and decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender1} 
+		</if>
+		<if test="gender2 !=null and gender2 !=''" >
+			and ((decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender1}) or (decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2}))
+		</if>
+	</if>
+	
+	<if test="gender2 !=null and gender2 !=''" >
+	 	<if test="gender1 ==null or gender1 ==''" >
+			and decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2} 
+		</if>
+		<if test="gender1 !=null and gender1 !=''" >
+			and ((decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender1}) or (decode(substr(d.developer_jumin_num,7,1),'1','m','3','m','w')=#{gender2}))
+		</if>
+	</if>
+	 <!-- <if test="skill != null and skill.size()>0">
+  		and (select substr(xmlagg(xmlelement(x,',',
+        (select dl.development_language_name from development_language dl where dl.development_language_no = cdl.development_language_no)
+        )).extract('//text()'),2)
+        from career_development_language cdl
+        where cdl.developer_no = d.developer_no)in
+		<foreach item="skill" collection="skill" index="index" open="(" separator="," close=")">
+			#{skill}
+		</foreach>
+    </if> -->
+	 
+ 	<!-- 	<if test="final_education!=null and final_education.size()>0">
+  		
+	and  (select sc.school_no from school sc, school_index si where sc.school_no = si.school_no
+    	and si.school_no=(select max(school_no) from school s where d.developer_no = s.developer_no))in		
+		<foreach item="final_education" collection="final_education" index="index" open="(" separator="," close=")">
+		#{final_education}
+		</foreach>
+	
+				
+	</if>    -->
+	  
+	
+	</select>
+	
+		
+
+
+	
+	
+	
+	
+</mapper>
+
+
