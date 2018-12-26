@@ -798,7 +798,7 @@ if($("[name='company[0].company_name']").val().split(" ").join()!=""){
          //--------------------
          //호출할 서버쪽 url주소 설정
          //--------------------
-         url: "/test/developerRegProc.do"
+         url: "/erp/developerRegProc.do"
          //--------------------
          // 전송 방법 설정
          //--------------------
