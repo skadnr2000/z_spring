@@ -172,8 +172,6 @@ $(document).ready(function(){
                       && $("[name='company["+i+"].leave_date_year']").val().split(" ").join()!=""
                       && $("[name='company["+i+"].leave_date_month']").val().split(" ").join()!=""
                       ){
-
-                       
                      if(parseInt(( $("[name='company["+i+"].hire_date_year']").val() ),10 )
                           > parseInt(($("[name='company["+i+"].leave_date_year']").val() ),10 )
                           ){
@@ -209,7 +207,7 @@ $(document).ready(function(){
             && $("[name='project["+i+"].project_end_date_year']").val().split(" ").join()!=""
             &&$("[name='project["+i+"].project_end_date_month']").val().split(" ").join()!=""
          ){
-
+        
             if(parseInt(( $("[name='project["+i+"].project_start_date_year']").val() ),10 )
                 > parseInt(($("[name='project["+i+"].project_end_date_year']").val() ),10 )
                 ){
@@ -798,7 +796,7 @@ if($("[name='company[0].company_name']").val().split(" ").join()!=""){
          //--------------------
          //호출할 서버쪽 url주소 설정
          //--------------------
-         url: "/erp/developerRegProc.do"
+         url: "/test/developerRegProc.do"
          //--------------------
          // 전송 방법 설정
          //--------------------
@@ -881,12 +879,9 @@ if($("[name='company[0].company_name']").val().split(" ").join()!=""){
 </style>
 
 <body>
-   <table align=center>
-      <tr>
-         <td>
-            <form name="registration" method="post" action="">
-    
-    <h2 bgcolor="#838383" height="40">
+	<form name="registration" method="post" action="">
+	 
+	 <h2 bgcolor="#5AA4E0" height="40">
         <font face="맑은고딕" size="5">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -894,901 +889,1056 @@ if($("[name='company[0].company_name']").val().split(" ").join()!=""){
         [정규직 등록화면]
         </font>
      </h2>
-   1.개인정보
-    
-   <table class="tb1" border=1 cellpadding="6">
-               <tr>
-                  <th bgcolor="#838383">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                  <td>
-                     <input type="text" name="developer_id" size=26 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </td>
-                  <th bgcolor="#838383">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;암호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                  <td>
-                     <input type="password" name="developer_pwd" size=27 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </td>
-                  <th bgcolor="#838383">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;암호확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                  <td>
-                     <input type="password" name="developer_pwd_cf" size=27 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </td>
-               </tr>
-               <tr>
-                  <th bgcolor="#838383">이름</th>
-                  <td>
-                     <input type="text" name="developer_name" size=26 maxlength=20>
-                  </td>
-                  <th bgcolor="#838383">주민번호</th>
-                  <td>
-                     <input type="text" name="developer_jumin_num" size=26 maxlength=20>
-                  </td>
-                  <th bgcolor="#838383">핸드폰</th>
-                  <td>
-                     <input type="text" name="developer_phone" size=26 maxlength=20>
-                  </td>
-               </tr>
-               <tr>
-                  <th bgcolor="#838383">이메일</th>
-                  <td>
-                     <input type="text" name="developer_email" size=26 maxlength=20>
-                  </td>
-                  <th bgcolor="#838383">종교</th>
-                  <td>
-                     <select name="religion_no">
-                        <option value=""></option>
-                        <option value="1">기독교</option>
-                        <option value="2">천주교</option>
-                        <option value="3">불교</option>
-                        <option value="4">무교</option>
-                        <option value="5">기타</option>
-                     </select>
-                  </td>
-                  <th bgcolor="#838383">병역</th>
-                  <td>
-                     <select name="military_service_no">
-                        <option value=""></option>
-                        <option value="1">미필</option>
-                        <option value="2">군필</option>
-                        <option value="3">면제</option>
-                        <option value="4">공익</option>
-                        <option value="5">상근</option>
-                     </select>
-                  </td>
-               </tr>
-               <tr>
-                  <th bgcolor="#838383">주소</th>
-                  <td colspan=5> [우편번호]: 
-                     <input type="text" size="12" name="zip_code" size=20 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     [주소]: 
-                     <input type="text" size="60" name="addr" size=20 maxlength=20>
-                  </td>
-               </tr>
-               <tr>
-                  <th bgcolor="#838383">긴급연락처</th>
-                  <td colspan=5> [연락 받을 사람 이름]: 
-                     <input type="text" name="emergency_contact_name" size=20 maxlength=20>&nbsp;&nbsp;&nbsp;
-                     [관계]: 
-                     <select name="emergency_contact_relation_no">
-                        <option value=""></option>
-                        <option value="1">부모</option>
-                        <option value="2">형제</option>
-                        <option value="3">친척</option>
-                        <option value="4">지인</option>
-                     </select>
-                     (부모,형제,친척,지인)&nbsp;&nbsp;&nbsp;
-                     [전화번호]:
-                     <input type="text" name="emergency_contact_phone" size=20 maxlength=20>
-                  </td>
-               </tr>
-               <tr>
-                  <th bgcolor="#838383">월급통장번호</th>
-                  <td colspan=5>
-                     <select name="bank_no">
-                        <option value="">--은행선택--</option>
-                        <option value="1">기업은행</option>
-                        <option value="2">신한은행</option>
-                        <option value="3">하나은행</option>
-                        <option value="4">국민은행</option>
-                        <option value="5">농협</option>
-                     </select>
-                     <input type="text" name="account_num" size=20 maxlength=20>
-                     (-없이 입력)
-                  </td>
-               </tr>
-            </table>
-   
-   <br>
-   2.학력
-   <table class="tb1" border=1 cellpadding="6">
-            <tr>
-               <th bgcolor="#838383">학교명</th>
-               <th bgcolor="#838383">학부</th>
-               <th bgcolor="#838383">전공과목</th>
-               <th bgcolor="#838383">부전공과목</th>
-               <th bgcolor="#838383">졸업일</th>
-            </tr>
-            <tr>
-               <td>
-                  <input type="text" name="school[0].school_name" size=15 maxlength=20> 고등학교 졸
-                        <input type="hidden" name="school[0].school_no" value="1">
-               </td>
-               <td>
-               <input type="hidden" name="school[0].school_dept_no">
-               </td>
-                    <td>
-                    <input type="hidden" name="school[0].major">
-                    </td>
-                     <td>
-                     <input type="hidden" name="school[0].sub_major">
-                     </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="school[0].graduation_date_year">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1960 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                  년
-                  <select name="school[0].graduation_date_month">
-                     <option value=""></option>
-                        <script>
-                              for( var i=1 ; i<=12 ; i++){
-                                  if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                  else   { document.write( "<option value='"+i+"'>"+i ); }
-                              }
-                            </script>
-                  </select>
-                  월
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <input type="text" name="school[1].school_name" size=15 maxlength=20> 전문대 졸 (대학 졸)
-                        <input type="hidden" name="school[1].school_no" value="2">
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <select name="school[1].school_dept_no">
-                     <option value="0"></option>
-                     <option value="1">기계공학부</option>
-                     <option value="2">전기전자통신공학부</option>
-                     <option value="3">컴퓨터공학부</option>
-                     <option value="4">경영학부</option>
-                     <option value="5">생활환경공학부</option>
-                  </select>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[1].major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[1].sub_major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="school[1].graduation_date_year">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1960 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                  년
-                  <select name="school[1].graduation_date_month">
-                     <option value=""></option>
-                        <script>
-                              for( var i=1 ; i<=12 ; i++){
-                                  if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                  else   { document.write( "<option value='"+i+"'>"+i ); }
-                              }
-                            </script>
-                  </select>
-                  월
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <input type="text" name="school[2].school_name" size=15 maxlength=20> 대학교 학사 졸
-                  <input type="hidden" name="school[2].school_no" value="3">
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <select name="school[2].school_dept_no">
-                     <option value="0"></option>
-                     <option value="1">컴퓨터학부</option>
-                     <option value="2">유아교육학부</option>
-                     <option value="3">사회복지학부</option>
-                     <option value="4">간호학부</option>
-                     <option value="5">생활체육학부</option>
-                     <option value="6">철도기계시스템학부</option>
-                  </select>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[2].major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[2].sub_major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="school[2].graduation_date_year">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1960 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                  년
-                  <select name="school[2].graduation_date_month">
-                     <option value=""></option>
-                        <script>
-                              for( var i=1 ; i<=12 ; i++){
-                                  if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                  else   { document.write( "<option value='"+i+"'>"+i ); }
-                              }
-                            </script>
-                  </select>
-                  월
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <input type="text" name="school[3].school_name" size=15 maxlength=20> 대학교 석사 졸
-                        <input type="hidden" name="school[3].school_no" value="4">
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <select name="school[3].school_dept_no">
-                     <option value="0"></option>
-                     <option value="1">컴퓨터학부</option>
-                     <option value="2">유아교육학부</option>
-                     <option value="3">사회복지학부</option>
-                     <option value="4">간호학부</option>
-                     <option value="5">생활체육학부</option>
-                     <option value="6">철도기계시스템학부</option>
-                  </select>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[3].major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[3].sub_major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="school[3].graduation_date_year">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1960 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                  년
-                  <select name="school[3].graduation_date_month">
-                     <option value=""></option>
-                        <script>
-                              for( var i=1 ; i<=12 ; i++){
-                                  if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                  else   { document.write( "<option value='"+i+"'>"+i ); }
-                              }
-                            </script>
-                  </select>
-                  월
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <input type="text" name="school[4].school_name" size=15 maxlength=20> 대학교 박사 졸
-                  <input type="hidden" name="school[4].school_no" value="5">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <select name="school[4].school_dept_no">
-                     <option value="0"></option>
-                     <option value="1">컴퓨터학부</option>
-                     <option value="2">유아교육학부</option>
-                     <option value="3">사회복지학부</option>
-                     <option value="4">간호학부</option>
-                     <option value="5">생활체육학부</option>
-                     <option value="6">철도기계시스템학부</option>
-                  </select>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[4].major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;
-                  <input type="text" name="school[4].sub_major" size=17 maxlength=20>
-                  &nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="school[4].graduation_date_year">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1960 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                  년
-                  <select name="school[4].graduation_date_month">
-                     <option value=""></option>
-                        <script>
-                              for( var i=1 ; i<=12 ; i++){
-                                  if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                  else   { document.write( "<option value='"+i+"'>"+i ); }
-                              }
-                            </script>
-                  </select>
-                  월
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
-            </table><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            *검정고시 출신은 고등학교명에 [검정고시] 라고 입력하십시오...<br><br>
-   
-   3.가족
-   <table class="tb1" border=1 cellpadding="6">
-            <tr>
-               <th bgcolor="#838383">관계</th>
-               <th bgcolor="#838383">이름</th>
-               <th bgcolor="#838383">출생년도</th>
-               <th bgcolor="#838383">동거여부</th>
-            </tr>
-            <tr align=center class="xxx">
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="family[0].family_relation_no">
-                     <option value=""></option>
-                     <option value="1">부</option>
-                     <option value="2">모</option>
-                     <option value="3">형제</option>
-                     <option value="4">자매</option>
-                  </select>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" name="family[0].family_name" size=20 maxlength=20>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="family[0].family_birth">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1950 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-               <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="checkbox" name="family[0].family_together" value="y">동거
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               </td>
-            </tr>
-            </table>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style="cursor:pointer" onClick="addTR('xxx');">[행추가]</span>&nbsp;&nbsp;<span style="cursor:pointer" onClick="delLastTR('xxx');">[행삭제]</span>
-            <br><br>
-   
-   4.회사 경력
-   <table class="tb1" border=1 cellpadding="6">
-               <tr>
-                  <th bgcolor="#838383">회사명/업무</th>
-                  <th bgcolor="#838383">분야</th>
-                  <th bgcolor="#838383">부서</th>
-                  <th bgcolor="#838383">직위</th>
-                  <th bgcolor="#838383">고용형태</th>
-                  <th bgcolor="#838383">연봉</th>
-                  <th bgcolor="#838383">입사일/퇴사일</th>
-               </tr>
-               <tr class="career_tr">
-                  <td align=right>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회사명:
-                     <input type="text" size="10" name="company[0].company_name" size=20 maxlength=20>
-                     &nbsp;&nbsp;<br>
-                     업무:
-                     <input type="text" size="10" name="company[0].company_task" size=20 maxlength=20>
-                     &nbsp;&nbsp;
-                  </td>
-                  <td align=center>
-                     &nbsp;&nbsp;
-                     <select name="company[0].boonya_no">
-                              <option value=""></option>
-                              <option value="1">웹프로그래머</option>
-                              <option value="2">응용프로그래머</option>
-                              <option value="3">웹디자인</option>
-                              <option value="4">웹기획·PM</option>
-                              <option value="5">DBA·데이터베이스</option>
-                              <option value="6">IT·디자인·컴퓨터강사</option>
-                           </select>
-                     &nbsp;&nbsp;
-                  </td>
-                  <td align=center>
-                     &nbsp;&nbsp;
-                     <select name="company[0].booseo_no">
-                        <option value=""></option>
-                        <option value="1">영업팀</option>
-                        <option value="2">경리팀</option>
-                        <option value="3">인사팀</option>
-                        <option value="4">회계팀</option>
-                        <option value="5">광고팀</option>
-                     </select>
-                     &nbsp;&nbsp;
-                     </td>
-                  <td align=center>
-                     &nbsp;&nbsp;
-                     <select name="company[0].jikup_no">
-                        <option value=""></option>
-                        <option value="1">사원</option>
-                        <option value="2">대리</option>
-                        <option value="3">과장</option>
-                        <option value="4">차장</option>
-                        <option value="5">부장</option>
-                        <option value="6">이사</option>
-                        <option value="7">상무</option>
-                        <option value="8">전무</option>
-                        <option value="9">부사장</option>
-                        <option value="10">사장</option>
-                        <option value="11">회장</option>
-                     </select>
-                     &nbsp;&nbsp;
-                     </td>
-                  <td align=center>
-                     &nbsp;&nbsp;
-                     <select name="company[0].hire_type_no">
-                        <option value=""></option>
-                        <option value="1">정규직</option>
-                        <option value="2">계약직</option>
-                        <option value="3">알바</option>
-                        <option value="4">파견직</option>
-                        <option value="5">인턴</option>
-                     </select>
-                     &nbsp;&nbsp;
-                     </td>
-                  <td align=center>
-                     &nbsp;&nbsp;
-                     <select name="company[0].salary">
-                        <option value=""></option>
-                        <script>
-                           var zero = 0;
-                           for( var i=2000 ;  i<=5000 ; i=i+100){
-                                      document.write( "<option value='"+i+"'>"+i );
-                                  }
-                            </script>
-                     </select>
-                     만원
-                     &nbsp;&nbsp;
-                     </td>
-                  <td align=center>
-                     &nbsp;&nbsp;입사일:
-                  <select name="company[0].hire_date_year">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1970 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                     년
-                  <select name="company[0].hire_date_month">
-                     <option value=""></option>
-                        <script>
-                              for( var i=1 ; i<=12 ; i++){
-                                  if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                  else   { document.write( "<option value='"+i+"'>"+i ); }
-                              }
-                            </script>
-                  </select>
-                     월&nbsp;&nbsp;<br>
-                     &nbsp;&nbsp;퇴사일:
-                  <select name="company[0].leave_date_year">
-                     <option value=""></option>
-                        <script>
-                               for( var i=1970 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                   document.write( "<option value='"+i+"'>"+i );
-                               }
-                              </script>
-                  </select>
-                     년
-                  <select name="company[0].leave_date_month">
-                     <option value=""></option>
-                        <script>
-                              for( var i=1 ; i<=12 ; i++){
-                                  if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                  else   { document.write( "<option value='"+i+"'>"+i ); }
-                              }
-                            </script>
-                  </select>
-                     월&nbsp;&nbsp;
-                  </td>
-               </tr>
-               </table>
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <span style="cursor:pointer" onClick="addTR('career_tr');">[행추가]</span>&nbsp;&nbsp; <span style="cursor:pointer" onClick="delLastTR('career_tr');">[행삭제]</span>
-               <br><br>
-   
-   5.자격증<br>
-            <c:forEach var="certificate" items="${requestScope.certificateList}">
-               <input type="checkbox" name="certificate"  value="${certificate.certificate_no}">${certificate.certificate_name}
-            </c:forEach>
-            <br><br>
-   
-   6.외국어 (중급이상만 입력)
-   <table class="tb1" border=1 cellpadding="6" >
-               <tr>
-                  <th width="130" bgcolor="#838383">독해 가능 외국어</th>
-                  <td width="280">
-                     <c:forEach var="foreign_language" items="${requestScope.foreign_languageList}">
-                        <input type="checkbox" name="foreign_language_read"  value="${foreign_language.foreign_language_no}">${foreign_language.foreign_language_name}
-                     </c:forEach>
-                  </td>
-               </tr>
-               <tr>
-                  <th bgcolor="#838383">회화 가능 외국어</th>
-                  <td>
-                      <c:forEach var="foreign_language" items="${requestScope.foreign_languageList}">
-                        <input type="checkbox" name="foreign_language_speak"  value="${foreign_language.foreign_language_no}">${foreign_language.foreign_language_name}
-                     </c:forEach>
-                  </td>
-               </tr>
-               </table>
-               <br><br>
-   
-   7.IT 교육센터
-   <table class="tb1" border=1 cellpadding="6">
-               <tr>
-                  <th bgcolor="#838383">교육센터명</th>
-                  <th bgcolor="#838383">교육기간</th>
-                  <th bgcolor="#838383">교육수료일</th>
-                  <th bgcolor="#838383">수료과목</th>
-               </tr>
-               <tr>
-                  <td align=center>
-                     <input type="text" name="it_education_center_name" size=20 maxlength=20>
-                  </td>
-                  <td align=center>
-                     <select name="education_period">
-                        <option value=""></option>
-                        <script>
-                               for( var i=1 ; i<=12 ; i++){
-                                   if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                   else   { document.write( "<option value='"+i+"'>"+i ); }
-                                 }
-                            </script>
-                     </select>
-                     개월
-                  </td>
-                  <td align=center>
-                     <select name="education_date_year">
-                        <option value=""></option>
-                           <script>
-                                     for( var i=2008 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                         document.write( "<option value='"+i+"'>"+i );
-                                     }
-                              </script>
-                     </select>
-                     &nbsp;&nbsp;년
-                     <select name="education_date_month">
-                        <option value=""></option>
-                           <script>
-                                  for( var i=1 ; i<=12 ; i++){
-                                      if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                      else   { document.write( "<option value='"+i+"'>"+i ); }
-                                  }
-                            </script>
-                     </select>
-                     &nbsp;&nbsp;월
-                     <select name="education_date_day">
-                        <option value=""></option>
-                           <script>
-                                    for( var i=1 ; i<=31 ; i++){
-                                        if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                           else   { document.write( "<option value='"+i+"'>"+i ); }
-                                    }
-                                 </script>
-                     </select>
-                     &nbsp;&nbsp;일
-                  </td>
-                  <td>
-                      <c:forEach var="subject" items="${requestScope.subjectList}">
-                        <input type="checkbox" name="subject"  value="${subject.subject_no}">${subject.subject_name}
-                     </c:forEach>
-                  </td>
-               </tr>
-               </table><br><br>
-   
-   8.기호
-   <table class="tb1" border=1 cellpadding="6">
-               <tr>
-                  <th bgcolor="#838383">하루흡연량</th>
-                  <th bgcolor="#838383">소주주량</th>
-                  <th bgcolor="#838383">맥주주량 (500CC기준)</th>
-                  <th bgcolor="#838383">관심분야</th>
-               </tr>
-               <tr align=center>
-                  <td>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <select name="day_smoking">
-                        <option value="0"></option>
-                        <option value="1">반</option>
-                        <option value="2">한</option>
-                        <option value="3">두</option>
-                     </select>
-                     갑
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </td>
-                  <td>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <select name="day_soju">
-                        <option value="0"></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                     </select>
-                     병
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     </td>
-                  <td>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <select name="day_beer">
-                        <option value="0"></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                     </select>
-                     잔
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     </td>
-                  <td>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <c:forEach var="attention" items="${requestScope.attentionList}">
-                        <input type="checkbox" name="attention"  value="${attention.attention_no}">${attention.attention_name}
-                     </c:forEach>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </td>
-                  </tr>
-               </table>
-               <br><br>
-   
-   9.취미<br>
-            <input type="text" name="hobby1" size=30 maxlength=20>
-            &nbsp;&nbsp;&nbsp;
-            <input type="text" name="hobby2" size=30 maxlength=20>
-            &nbsp;&nbsp;&nbsp;
-            <input type="text" name="hobby3" size=30 maxlength=20>
-            <br><br>
-   
-   10.개발 경력
-   <table class="tb1" border=1 cellpadding="6">
-            <tr>
-               <th bgcolor="#838383" width="280" rowspan="2">
-                  프로젝트명 / 기간
-               </th>
-               <th bgcolor="#838383" width="230" rowspan="2">
-                  고객사 / 근무사 / 역할
-               </th>
-               <th bgcolor="#838383">
-                  개&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;발&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;환&nbsp;&nbsp;&nbsp;&nbsp;경
-               </th>
-            </tr>
-            <tr>
-               <th bgcolor="#838383" width="650">
-                  기종/OS/언어/DBMS/TOOL/기타
-               </th>
-            </tr>
-            <tr class="devcareer_add">
-               <td> 
-                  <table class="tb2">
+	1.개인정보
+	 
+	<table class="tb1" border=1 cellpadding="6">
+					<tr>
+						<th bgcolor="#5AA4E0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아이디&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<td>
+							<input type="text" name="developer_id" size=26 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+						<th bgcolor="#5AA4E0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;암호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<td>
+							<input type="password" name="developer_pwd" size=27 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+						<th bgcolor="#5AA4E0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;암호확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+						<td>
+							<input type="password" name="developer_pwd_cf" size=27 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#5AA4E0">이름</th>
+						<td>
+							<input type="text" name="developer_name" size=26 maxlength=20>
+						</td>
+						<th bgcolor="#5AA4E0">주민번호</th>
+						<td>
+							<input type="text" name="developer_jumin_num" size=26 maxlength=20>
+						</td>
+						<th bgcolor="#5AA4E0">핸드폰</th>
+						<td>
+							<input type="text" name="developer_phone" size=26 maxlength=20>
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#5AA4E0">이메일</th>
+						<td>
+							<input type="text" name="developer_email" size=26 maxlength=20>
+						</td>
+						<th bgcolor="#5AA4E0">종교</th>
+						<td>
+							<select name="religion_no">
+								<option value=""></option>
+								<option value="1">기독교</option>
+								<option value="2">천주교</option>
+								<option value="3">불교</option>
+								<option value="4">무교</option>
+								<option value="5">기타</option>
+							</select>
+						</td>
+						<th bgcolor="#5AA4E0">병역</th>
+						<td>
+							<select name="military_service_no">
+								<option value=""></option>
+								<option value="1">미필</option>
+								<option value="2">군필</option>
+								<option value="3">면제</option>
+								<option value="4">공익</option>
+								<option value="5">상근</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#5AA4E0">주소</th>
+						<td colspan=5> [우편번호]: 
+							<input type="text" size="12" name="zip_code" size=20 maxlength=20>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							[주소]: 
+							<input type="text" size="60" name="addr" size=20 maxlength=20>
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#5AA4E0">긴급연락처</th>
+						<td colspan=5> [연락 받을 사람 이름]: 
+							<input type="text" name="emergency_contact_name" size=20 maxlength=20>&nbsp;&nbsp;&nbsp;
+							[관계]: 
+							<select name="emergency_contact_relation_no">
+								<option value=""></option>
+								<option value="1">부모</option>
+								<option value="2">형제</option>
+								<option value="3">친척</option>
+								<option value="4">지인</option>
+							</select>
+							(부모,형제,친척,지인)&nbsp;&nbsp;&nbsp;
+							[전화번호]:
+							<input type="text" name="emergency_contact_phone" size=20 maxlength=20>
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#5AA4E0">월급통장번호</th>
+						<td colspan=5>
+							<select name="bank_no">
+								<option value="">--은행선택--</option>
+								<option value="1">기업은행</option>
+								<option value="2">신한은행</option>
+								<option value="3">하나은행</option>
+								<option value="4">국민은행</option>
+								<option value="5">농협</option>
+							</select>
+							<input type="text" name="account_num" size=20 maxlength=20>
+							(-없이 입력)
+						</td>
+					</tr>
+				</table>
+	
+	<br>
+	2.학력
+	<table class="tb1" border=1 cellpadding="6">
+				<tr>
+					<th bgcolor="#5AA4E0">학교명</th>
+					<th bgcolor="#5AA4E0">학부</th>
+					<th bgcolor="#5AA4E0">전공과목</th>
+					<th bgcolor="#5AA4E0">부전공과목</th>
+					<th bgcolor="#5AA4E0">졸업일</th>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="school[0].school_name" size=15 maxlength=20> 고등학교 졸
+                  		<input type="hidden" name="school[0].school_no" value="1">
+					</td>
+					<td>
+					<input type="hidden" name="school[0].school_dept_no">
+					</td>
+              		<td>
+              		<input type="hidden" name="school[0].major">
+              		</td>
+               		<td>
+               		<input type="hidden" name="school[0].sub_major">
+               		</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="school[0].graduation_date_year">
+							<option value=""></option>
+							<option value="2004">2004</option>
+							<option value="2005">2005</option>
+							<option value="2006">2006</option>
+							<option value="2007">2007</option>
+							<option value="2008">2008</option>
+							<option value="2009">2009</option>
+							<option value="2010">2010</option>
+							<option value="2011">2011</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+						</select>
+						년
+						<select name="school[0].graduation_date_month">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						월
+						&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="school[1].school_name" size=15 maxlength=20> 전문대 졸 (대학 졸)
+                  		<input type="hidden" name="school[1].school_no" value="2">
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<select name="school[1].school_dept_no">
+							<option value="0"></option>
+							<option value="1">기계공학부</option>
+							<option value="2">전기전자통신공학부</option>
+							<option value="3">컴퓨터공학부</option>
+							<option value="4">경영학부</option>
+							<option value="5">생활환경공학부</option>
+						</select>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[1].major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[1].sub_major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="school[1].graduation_date_year">
+							<option value=""></option>
+							<option value="2004">2004</option>
+							<option value="2005">2005</option>
+							<option value="2006">2006</option>
+							<option value="2007">2007</option>
+							<option value="2008">2008</option>
+							<option value="2009">2009</option>
+							<option value="2010">2010</option>
+							<option value="2011">2011</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+						</select>
+						년
+						<select name="school[1].graduation_date_month">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						월
+						&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="school[2].school_name" size=15 maxlength=20> 대학교 학사 졸
+						<input type="hidden" name="school[2].school_no" value="3">
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<select name="school[2].school_dept_no">
+							<option value="0"></option>
+							<option value="1">컴퓨터학부</option>
+							<option value="2">유아교육학부</option>
+							<option value="3">사회복지학부</option>
+							<option value="4">간호학부</option>
+							<option value="5">생활체육학부</option>
+							<option value="6">철도기계시스템학부</option>
+						</select>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[2].major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[2].sub_major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="school[2].graduation_date_year">
+							<option value=""></option>
+							<option value="2004">2004</option>
+							<option value="2005">2005</option>
+							<option value="2006">2006</option>
+							<option value="2007">2007</option>
+							<option value="2008">2008</option>
+							<option value="2009">2009</option>
+							<option value="2010">2010</option>
+							<option value="2011">2011</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+						</select>
+						년
+						<select name="school[2].graduation_date_month">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						월
+						&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="school[3].school_name" size=15 maxlength=20> 대학교 석사 졸
+                  		<input type="hidden" name="school[3].school_no" value="4">
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<select name="school[3].school_dept_no">
+							<option value="0"></option>
+							<option value="1">컴퓨터학부</option>
+							<option value="2">유아교육학부</option>
+							<option value="3">사회복지학부</option>
+							<option value="4">간호학부</option>
+							<option value="5">생활체육학부</option>
+							<option value="6">철도기계시스템학부</option>
+						</select>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[3].major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[3].sub_major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="school[3].graduation_date_year">
+							<option value=""></option>
+							<option value="2004">2004</option>
+							<option value="2005">2005</option>
+							<option value="2006">2006</option>
+							<option value="2007">2007</option>
+							<option value="2008">2008</option>
+							<option value="2009">2009</option>
+							<option value="2010">2010</option>
+							<option value="2011">2011</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+						</select>
+						년
+						<select name="school[3].graduation_date_month">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						월
+						&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="school[4].school_name" size=15 maxlength=20> 대학교 박사 졸
+						<input type="hidden" name="school[4].school_no" value="5">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<select name="school[4].school_dept_no">
+							<option value="0"></option>
+							<option value="1">컴퓨터학부</option>
+							<option value="2">유아교육학부</option>
+							<option value="3">사회복지학부</option>
+							<option value="4">간호학부</option>
+							<option value="5">생활체육학부</option>
+							<option value="6">철도기계시스템학부</option>
+						</select>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[4].major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;
+						<input type="text" name="school[4].sub_major" size=17 maxlength=20>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="school[4].graduation_date_year">
+							<option value=""></option>
+							<option value="2004">2004</option>
+							<option value="2005">2005</option>
+							<option value="2006">2006</option>
+							<option value="2007">2007</option>
+							<option value="2008">2008</option>
+							<option value="2009">2009</option>
+							<option value="2010">2010</option>
+							<option value="2011">2011</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+						</select>
+						년
+						<select name="school[4].graduation_date_month">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						월
+						&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				</table><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				*검정고시 출신은 고등학교명에 [검정고시] 라고 입력하십시오...<br><br>
+	
+	3.가족
+	<table class="tb1" border=1 cellpadding="6">
+				<tr>
+					<th bgcolor="#5AA4E0">관계</th>
+					<th bgcolor="#5AA4E0">이름</th>
+					<th bgcolor="#5AA4E0">출생년도</th>
+					<th bgcolor="#5AA4E0">동거여부</th>
+				</tr>
+				<tr align=center class="xxx">
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="family[0].family_relation_no">
+							<option value=""></option>
+							<option value="1">부</option>
+							<option value="2">모</option>
+							<option value="3">형제</option>
+							<option value="4">자매</option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" name="family[0].family_name" size=20 maxlength=20>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="family[0].family_birth">
+							<option value=""></option>
+							<option value="1985">1985</option>
+							<option value="1986">1986</option>
+							<option value="1987">1987</option>
+							<option value="1988">1988</option>
+							<option value="1989">1989</option>
+							<option value="1990">1990</option>
+							<option value="1991">1991</option>
+							<option value="1992">1992</option>
+							<option value="1993">1993</option>
+							<option value="1994">1994</option>
+							<option value="1995">1995</option>
+							<option value="1996">1996</option>
+							<option value="1997">1997</option>
+							<option value="1998">1998</option>
+							<option value="1999">1999</option>
+							<option value="2000">2000</option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+					<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="family[0].family_together" value="y">동거
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				</table>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span style="cursor:pointer" onClick="addTR('xxx');">[행추가]</span>&nbsp;&nbsp;<span style="cursor:pointer" onClick="delLastTR('xxx');">[행삭제]</span>
+				<br><br>
+	
+	4.회사 경력
+	<table class="tb1" border=1 cellpadding="6">
+					<tr>
+						<th bgcolor="#5AA4E0">회사명/업무</th>
+						<th bgcolor="#5AA4E0">분야</th>
+						<th bgcolor="#5AA4E0">부서</th>
+						<th bgcolor="#5AA4E0">직위</th>
+						<th bgcolor="#5AA4E0">고용형태</th>
+						<th bgcolor="#5AA4E0">연봉</th>
+						<th bgcolor="#5AA4E0">입사일/퇴사일</th>
+					</tr>
+					<tr class="career_tr">
+						<td align=right>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회사명:
+							<input type="text" size="10" name="company[0].company_name" size=20 maxlength=20>
+							&nbsp;&nbsp;<br>
+							업무:
+							<input type="text" size="10" name="company[0].company_task" size=20 maxlength=20>
+							&nbsp;&nbsp;
+						</td>
+						<td align=center>
+							&nbsp;&nbsp;
+							<select name="company[0].boonya_no">
+								<option value=""></option>
+								<option value="1">IT</option>
+								<option value="2">유지보수</option>
+							</select>
+							&nbsp;&nbsp;
+						</td>
+						<td align=center>
+							&nbsp;&nbsp;
+							<select name="company[0].booseo_no">
+								<option value=""></option>
+								<option value="1">영업팀</option>
+								<option value="2">경리팀</option>
+								<option value="3">인사팀</option>
+								<option value="4">회계팀</option>
+								<option value="5">광고팀</option>
+							</select>
+							&nbsp;&nbsp;
+							</td>
+						<td align=center>
+							&nbsp;&nbsp;
+							<select name="company[0].jikup_no">
+								<option value=""></option>
+								<option value="1">사원</option>
+								<option value="2">대리</option>
+								<option value="3">과장</option>
+								<option value="4">차장</option>
+								<option value="5">부장</option>
+								<option value="6">이사</option>
+								<option value="7">상무</option>
+								<option value="8">전무</option>
+								<option value="9">부사장</option>
+								<option value="10">사장</option>
+								<option value="11">회장</option>
+							</select>
+							&nbsp;&nbsp;
+							</td>
+						<td align=center>
+							&nbsp;&nbsp;
+							<select name="company[0].hire_type_no">
+								<option value=""></option>
+								<option value="1">정규직</option>
+								<option value="2">계약직</option>
+								<option value="3">알바</option>
+							</select>
+							&nbsp;&nbsp;
+							</td>
+						<td align=center>
+							&nbsp;&nbsp;
+							<select name="company[0].salary">
+								<option value=""></option>
+								<option value="1">2000</option>
+								<option value="2">2100</option>
+								<option value="3">2200</option>
+								<option value="4">2300</option>
+								<option value="5">2400</option>
+								<option value="6">2500</option>
+							</select>
+							만원
+							&nbsp;&nbsp;
+							</td>
+						<td align=center>
+							&nbsp;&nbsp;입사일:
+						<select name="company[0].hire_date_year">
+							<option value=""></option>
+							<option value="2004">2004</option>
+							<option value="2005">2005</option>
+							<option value="2006">2006</option>
+							<option value="2007">2007</option>
+							<option value="2008">2008</option>
+							<option value="2009">2009</option>
+							<option value="2010">2010</option>
+							<option value="2011">2011</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+						</select>
+							년
+						<select name="company[0].hire_date_month">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+							월&nbsp;&nbsp;<br>
+							&nbsp;&nbsp;퇴사일:
+						<select name="company[0].leave_date_year">
+							<option value=""></option>
+							<option value="2004">2004</option>
+							<option value="2005">2005</option>
+							<option value="2006">2006</option>
+							<option value="2007">2007</option>
+							<option value="2008">2008</option>
+							<option value="2009">2009</option>
+							<option value="2010">2010</option>
+							<option value="2011">2011</option>
+							<option value="2012">2012</option>
+							<option value="2013">2013</option>
+							<option value="2014">2014</option>
+							<option value="2015">2015</option>
+							<option value="2016">2016</option>
+							<option value="2017">2017</option>
+							<option value="2018">2018</option>
+							<option value="2019">2019</option>
+						</select>
+							년
+						<select name="company[0].leave_date_month">
+							<option value=""></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+							월&nbsp;&nbsp;
+						</td>
+					</tr>
+					</table>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span style="cursor:pointer" onClick="addTR('career_tr');">[행추가]</span>&nbsp;&nbsp; <span style="cursor:pointer" onClick="delLastTR('career_tr');">[행삭제]</span>
+					<br><br>
+	
+	5.자격증<br>
+				<c:forEach var="certificate" items="${requestScope.certificateList}">
+					<input type="checkbox" name="certificate"  value="${certificate.certificate_no}">${certificate.certificate_name}
+				</c:forEach>
+				<br><br>
+	
+	6.외국어 (중급이상만 입력)
+	<table class="tb1" border=1 cellpadding="6" >
+					<tr>
+						<th width="130" bgcolor="#5AA4E0">독해 가능 외국어</th>
+						<td width="280">
+							<c:forEach var="foreign_language" items="${requestScope.foreign_languageList}">
+								<input type="checkbox" name="foreign_language_read"  value="${foreign_language.foreign_language_no}">${foreign_language.foreign_language_name}
+							</c:forEach>
+						</td>
+					</tr>
+					<tr>
+						<th bgcolor="#5AA4E0">회화 가능 외국어</th>
+						<td>
+							 <c:forEach var="foreign_language" items="${requestScope.foreign_languageList}">
+								<input type="checkbox" name="foreign_language_speak"  value="${foreign_language.foreign_language_no}">${foreign_language.foreign_language_name}
+							</c:forEach>
+						</td>
+					</tr>
+					</table>
+					<br><br>
+	
+	7.IT 교육센터
+	<table class="tb1" border=1 cellpadding="6">
+					<tr>
+						<th bgcolor="#5AA4E0">교육센터명</th>
+						<th bgcolor="#5AA4E0">교육기간</th>
+						<th bgcolor="#5AA4E0">교육수료일</th>
+						<th bgcolor="#5AA4E0">수료과목</th>
+					</tr>
+					<tr>
+						<td align=center>
+							<input type="text" name="it_education_center_name" size=20 maxlength=20>
+						</td>
+						<td align=center>
+							<select name="education_period">
+								<option value=""></option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+							</select>
+							개월
+						</td>
+						<td align=center>
+							<select name="education_date_year">
+								<option value=""></option>
+								<option value="2017">2017</option>
+								<option value="2018">2018</option>
+								<option value="2019">2019</option>
+								<option value="2020">2020</option>
+							</select>
+							&nbsp;&nbsp;년
+							<select name="education_date_month">
+								<option value=""></option>
+								<option value="01">1</option>
+								<option value="02">2</option>
+								<option value="03">3</option>
+								<option value="04">4</option>
+								<option value="05">5</option>
+								<option value="06">6</option>
+								<option value="07">7</option>
+								<option value="08">8</option>
+								<option value="09">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+							</select>
+							&nbsp;&nbsp;월
+							<select name="education_date_day">
+								<option value=""></option>
+								<option value="01">1</option>
+								<option value="02">2</option>
+								<option value="03">3</option>
+								<option value="04">4</option>
+								<option value="05">5</option>
+								<option value="06">6</option>
+								<option value="07">7</option>
+								<option value="08">8</option>
+								<option value="09">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
+								<option value="31">31</option>
+							</select>
+							&nbsp;&nbsp;일
+						</td>
+						<td>
+							 <c:forEach var="subject" items="${requestScope.subjectList}">
+								<input type="checkbox" name="subject"  value="${subject.subject_no}">${subject.subject_name}
+							</c:forEach>
+						</td>
+					</tr>
+					</table><br><br>
+	
+	8.기호
+	<table class="tb1" border=1 cellpadding="6">
+					<tr>
+						<th bgcolor="#5AA4E0">하루흡연량</th>
+						<th bgcolor="#5AA4E0">소주주량</th>
+						<th bgcolor="#5AA4E0">맥주주량 (500CC기준)</th>
+						<th bgcolor="#5AA4E0">관심분야</th>
+					</tr>
+					<tr align=center>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<select name="day_smoking">
+								<option value="0"></option>
+								<option value="1">반</option>
+								<option value="2">한</option>
+								<option value="3">두</option>
+							</select>
+							갑
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<select name="day_soju">
+								<option value="0"></option>
+								<option value="1">반</option>
+								<option value="2">한</option>
+								<option value="3">두</option>
+								<option value="4">세</option>
+							</select>
+							병
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</td>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<select name="day_beer">
+								<option value="0"></option>
+								<option value="1">한</option>
+								<option value="2">두</option>
+								<option value="3">세</option>
+								<option value="4">네</option>
+								<option value="5">다섯</option>
+								<option value="6">여섯</option>
+							</select>
+							잔
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</td>
+						<td>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<c:forEach var="attention" items="${requestScope.attentionList}">
+								<input type="checkbox" name="attention"  value="${attention.attention_no}">${attention.attention_name}
+							</c:forEach>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+						</tr>
+					</table>
+					<br><br>
+	
+	9.취미<br>
+				<input type="text" name="hobby1" size=30 maxlength=20>
+				&nbsp;&nbsp;&nbsp;
+				<input type="text" name="hobby2" size=30 maxlength=20>
+				&nbsp;&nbsp;&nbsp;
+				<input type="text" name="hobby3" size=30 maxlength=20>
+				<br><br>
+	
+	10.개발 경력
+	<table class="tb1" border=1 cellpadding="6">
+				<tr>
+					<th bgcolor="#5AA4E0" width="280" rowspan="2">
+						프로젝트명 / 기간
+					</th>
+					<th bgcolor="#5AA4E0" width="230" rowspan="2">
+						고객사 / 근무사 / 역할
+					</th>
+					<th bgcolor="#5AA4E0">
+						개&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;발&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;환&nbsp;&nbsp;&nbsp;&nbsp;경
+					</th>
+				</tr>
+				<tr>
+					<th bgcolor="#5AA4E0" width="650">
+						기종/OS/언어/DBMS/TOOL/기타
+					</th>
+				</tr>
+				<tr class="devcareer_add">
+					<td> 
+						<table class="tb2">
                      <tr>
-                        <th width="100" bgcolor="#838383">프로젝트명</th>
+                        <th width="100" bgcolor="#5AA4E0">프로젝트명</th>
                         <td>
                            <input type="text" name="project[0].project_name" size=22 maxlength=20 >
                         </td>
                      </tr>
                      <tr>
-                        <th bgcolor="#838383">시작일</th>
+                        <th bgcolor="#5AA4E0">시작일</th>
                         <td>
                            <select name="project[0].project_start_date_year">
-                                 <option value=""></option>
-                                    <script>
-                                     for( var i=2000 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                         document.write( "<option value='"+i+"'>"+i );
-                                     }
-                                </script>
+                           <option value=""></option>
+                           <option value="2017">2017</option>
+                           <option value="2018">2018</option>
+                           <option value="2019">2019</option>
+                           <option value="2020">2020</option>
                            </select>&nbsp;
                            년
                            <select name="project[0].project_start_date_month">
                               <option value=""></option>
-                                    <script>
-                                    for( var i=1 ; i<=12 ; i++){
-                                        if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                        else   { document.write( "<option value='"+i+"'>"+i ); }
-                                    }
-                               </script>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
                            </select>&nbsp;
                            월
                         </td>
                      </tr>
                      
                      <tr>
-                        <th bgcolor="#838383">종료일</th>
+                        <th bgcolor="#5AA4E0">종료일</th>
                         <td>
                            <select name="project[0].project_end_date_year">
-                              <option value=""></option>
-                                       <script>
-                                        for( var i=2000 ;  i<new Date( ).getFullYear( )+1 ; i++){
-                                            document.write( "<option value='"+i+"'>"+i );
-                                        }
-                                   </script>
+                           <option value=""></option>
+                           <option value="2017">2017</option>
+                           <option value="2018">2018</option>
+                           <option value="2019">2019</option>
+                           <option value="2020">2020</option>
                            </select>&nbsp;
                            년
                            <select name="project[0].project_end_date_month">
                               <option value=""></option>
-                                    <script>
-                                    for( var i=1 ; i<=12 ; i++){
-                                        if(i<10){ document.write( "<option value='0"+i+"'>0"+i ); }
-                                        else   { document.write( "<option value='"+i+"'>"+i ); }
-                                    }
-                               </script>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
                            </select>&nbsp;
                            월
                         </td>
                      </tr>
                   </table>
-               </td>
-               <td>
-                  <table class="tb2">
+					</td>
+					<td>
+						<table class="tb2">
                      <tr>
-                        <th width="80"bgcolor="#838383">고객사</th>
+                        <th width="80"bgcolor="#5AA4E0">고객사</th>
                         <td>
                            <input type="text" name="project[0].customer_name" size=20 maxlength=20>
                         </td>
                      </tr>
                      <tr>
-                        <th bgcolor="#838383">근무사</th>
+                        <th bgcolor="#5AA4E0">근무사</th>
                         <td>
                            <input type="text" name="project[0].worker_name" size=20 maxlength=20>
                         </td>
                      </tr>
                      <tr>
-                        <th bgcolor="#838383">역할</th>
+                        <th bgcolor="#5AA4E0">역할</th>
                      </tr>
                   </table>
-                  <c:forEach var="roll" items="${requestScope.rollList}">
-                     <input type="checkbox" name="project[0].roll"  value="${roll.roll_no}">${roll.roll_name}
-                  </c:forEach>
-               </td>
-               <td height="250">
-                  <table align="center" class="tbcss1" border=1 cellpadding="6" width="620" >
-                     <tr>
-                        <th width="120" bgcolor="#838383">
-                           서버기종(H/W)
-                        </th>
-                        <td width="350">
-                           <input type="radio" name="project[0].server_kijong_name" value="IBM">IBM
-                           <input type="radio" name="project[0].server_kijong_name" value="Sun">Sun
-                                    <input type="radio" name="project[0].server_kijong_name" value="Dell">Dell
-                                    
-                        </td>
-                     </tr>
-                     <tr>
-                        <th bgcolor="#838383">
-                           서버 OS
-                        </th>
-                        <td>
-                           <input type="radio" name="project[0].server_os_name" value="IBM">IBM
-                                    <input type="radio" name="project[0].server_os_name" value="Windowserver">Window server
-                                    <input type="radio" name="project[0].server_os_name" value="Linux">Linux
-                                    
-                        </td>
-                     </tr>
-                     <tr>
-                        <th bgcolor="#838383">
-                           언어
-                        </th>
-                        <td>
-                            <c:forEach var="development_language" items="${requestScope.development_languageList}">
-                              <input type="checkbox" name="project[0].development_language"  value="${development_language.development_language_no}">${development_language.development_language_name}
-                           </c:forEach>
-                        </td>
-                     </tr>
-                     <tr>
-                        <th bgcolor="#838383">
-                           프레임워크
-                        </th>
-                        <td>
-                           <c:forEach var="framework" items="${requestScope.frameworkList}">
-                              <input type="checkbox" name="project[0].framework"  value="${framework.framework_no}">${framework.framework_name}
-                           </c:forEach>
-                        </td>
-                     </tr>
-                     <tr>
-                        <th bgcolor="#838383">
-                           DBMS
-                        </th>
-                        <td>
-                            <c:forEach var="DBMS" items="${requestScope.dbmsList}">
-                              <input type="checkbox" name="project[0].DBMS"  value="${DBMS.dbms_no}">${DBMS.dbms_name}
-                           </c:forEach>
-                        </td>
-                     </tr>
-                  </td>
-               </tr>
-            </table>
-         </td>
-      </tr>
-      </table>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <input type="hidden" name="remember1" value="">
-      <input type="hidden" name="remember2" value="">
-      <input type="hidden" name="remember3" value="">
-      <span style="cursor:pointer" onClick="addTR('devcareer_add');remember();">[행추가]</span>&nbsp;&nbsp; <span style="cursor:pointer" onClick="delLastTR('devcareer_add');">[행삭제]</span>
-      <br><br>
-      </table>
-      <center>
-      <input type="button" style="width:300" value="                저장                " name="save" onClick="register();">
-      <br><br>
-      </center>
-   </form>
-         </td>
-      </tr>
-   </table>
-   
+						<c:forEach var="roll" items="${requestScope.rollList}">
+							<input type="checkbox" name="project[0].roll"  value="${roll.roll_no}">${roll.roll_name}
+						</c:forEach>
+					</td>
+					<td height="250">
+						<table align="center" class="tbcss1" border=1 cellpadding="6" width="620" >
+							<tr>
+								<th width="120" bgcolor="#5AA4E0">
+									서버기종(H/W)
+								</th>
+								<td width="350">
+									<input type="radio" name="project[0].server_kijong_name" value="IBM">IBM
+									<input type="radio" name="project[0].server_kijong_name" value="Sun">Sun
+                           			<input type="radio" name="project[0].server_kijong_name" value="Dell">Dell
+                           			
+								</td>
+							</tr>
+							<tr>
+								<th bgcolor="#5AA4E0">
+									서버 OS
+								</th>
+								<td>
+									<input type="radio" name="project[0].server_os_name" value="IBM">IBM
+		                           	<input type="radio" name="project[0].server_os_name" value="Windowserver">Window server
+		                           	<input type="radio" name="project[0].server_os_name" value="Linux">Linux
+		                           	
+								</td>
+							</tr>
+							<tr>
+								<th bgcolor="#5AA4E0">
+									언어
+								</th>
+								<td>
+									 <c:forEach var="development_language" items="${requestScope.development_languageList}">
+										<input type="checkbox" name="project[0].development_language"  value="${development_language.development_language_no}">${development_language.development_language_name}
+									</c:forEach>
+								</td>
+							</tr>
+							<tr>
+								<th bgcolor="#5AA4E0">
+									프레임워크
+								</th>
+								<td>
+									<c:forEach var="framework" items="${requestScope.frameworkList}">
+										<input type="checkbox" name="project[0].framework"  value="${framework.framework_no}">${framework.framework_name}
+									</c:forEach>
+								</td>
+							</tr>
+							<tr>
+								<th bgcolor="#5AA4E0">
+									DBMS
+								</th>
+								<td>
+									 <c:forEach var="DBMS" items="${requestScope.dbmsList}">
+										<input type="checkbox" name="project[0].DBMS"  value="${DBMS.dbms_no}">${DBMS.dbms_name}
+									</c:forEach>
+								</td>
+							</tr>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="hidden" name="remember1" value="">
+		<input type="hidden" name="remember2" value="">
+		<input type="hidden" name="remember3" value="">
+		<span style="cursor:pointer" onClick="addTR('devcareer_add');remember();">[행추가]</span>&nbsp;&nbsp; <span style="cursor:pointer" onClick="delLastTR('devcareer_add');">[행삭제]</span>
+		<br><br>
+		</table>
+		<center>
+		<input type="button" style="width:300" value="                저장                " name="save" onClick="register();">
+		</center>
+	</form>
 
 
 </body>
